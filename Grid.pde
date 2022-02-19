@@ -4,7 +4,7 @@ public class Grid {
         cells = new GridCell[cols][rows];
         for (int i = 0; i < cols; ++i) {
             for (int j = 0; j < rows; ++j) {
-                cells[i][j] = new GridCell(j, i);
+                cells[i][j] = new GridCell(j, i, floor(j / clanRows) + floor(i / clanCols) * nbClansPerRow);
             }
         }
     }

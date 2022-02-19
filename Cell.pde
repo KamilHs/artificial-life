@@ -1,9 +1,7 @@
-import java.util.UUID;
-
 abstract public class Cell {
-    public UUID organizmId;
+    public int sectorId;
     
-    public Cell(UUID id) {
-        organizmId = id;
+    public Cell(int id) {
+        sectorId = id;
     }
 }
