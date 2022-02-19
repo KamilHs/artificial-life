@@ -1,4 +1,4 @@
-int cellSize = 40;
+int cellSize = 8;
 int rows, cols;
 int offsetX = 0;
 int offsetY = 0;
@@ -24,6 +24,8 @@ void setup() {
     offsetX = (displayWidth - rows * cellSize) / 2;
     offsetY = (h - cols * cellSize) / 2;
     grid = new Grid();
+    frameRate(2000);
+    noStroke();
 }
 
 void draw() {
@@ -33,6 +35,10 @@ void draw() {
     scale(zoom);
     grid.draw();
     popMatrix();
+    
+    textSize(64); 
+    fill(0);
+    text(int(frameRate), displayWidth - 100, 64);
 }
 
 

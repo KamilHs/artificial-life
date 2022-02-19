@@ -10,9 +10,13 @@ public class GridCell {
     
     void draw() {
         push();
-        fill(240);
-        stroke(255);
-        rect(x * cellSize + offsetX, y * cellSize + offsetY, cellSize, cellSize);
+        rectMode(CENTER);
+        translate(x * cellSize + offsetX + cellSize / 2, y * cellSize + offsetY + cellSize / 2);
+        fill((x + y) % 2 == 0 ? 255: 240);
+        rect(0, 0, cellSize, cellSize);
+        if (cell != null) {
+            cell.draw();
+        }
         pop();
     }
 }

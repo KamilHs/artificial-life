@@ -4,4 +4,6 @@ abstract public class Cell {
     public Cell(int id) {
         sectorId = id;
     }
+    
+    abstract public void draw();
 }
