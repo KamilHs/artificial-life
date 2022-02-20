@@ -9,6 +9,6 @@ public class GridCell {
     
     void draw() {
         fill((x + y) % 2 == 0 ? 255 : 240);
-        rect(x * cellSize + offsetX,  y * cellSize + offsetY, cellSize, cellSize);
+        rect(x * GridCellConfig.size + offsetX,  y * GridCellConfig.size + offsetY, GridCellConfig.size, GridCellConfig.size);
     }
 }

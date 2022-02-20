@@ -14,7 +14,7 @@ abstract public class Cell {
     
     abstract public void _draw();
     public void draw() {
-        translate(x * cellSize + offsetX + cellSize / 2, y * cellSize + offsetY + cellSize / 2);
+        translate(x * GridCellConfig.size + offsetX + GridCellConfig.size / 2, y * GridCellConfig.size + offsetY + GridCellConfig.size / 2);
         _draw();
     }
     abstract public void live();

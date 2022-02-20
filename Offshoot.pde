@@ -14,11 +14,11 @@ public class Offshoot extends Cell {
     }
     
     public void live() {
-        if(!alive) return;
+        if (!alive) return;
         
-        programCounter = programCounter % 64;
+        programCounter = programCounter % DNAConfig.movementSize;
         byte command = dna.movementDna[programCounter];
-        byte nextCommandCounter = byte((programCounter + 1) % 64);
+        byte nextCommandCounter = byte((programCounter + 1) % DNAConfig.movementSize);
         byte nextCommand = dna.movementDna[nextCommandCounter];
         MovementEnum commandEnum = MovementEnum.valueOf(command);
         DirectionEnum nextCommandEnum = DirectionEnum.valueOf(nextCommand);
@@ -70,12 +70,12 @@ public class Offshoot extends Cell {
     }
     
     public void _draw() {
-        if(alive)
-        fill(0);
+        if (alive)
+            fill(0);
         else
-        fill(255,0,0);
+            fill(255,0,0);
         rectMode(CENTER);
-        rect(0, 0, cellSize / 2, cellSize / 2);
+        rect(0, 0, OffshootConfig.size, OffshootConfig.size);
     }
     
     public void rotate(DirectionEnum direction) {

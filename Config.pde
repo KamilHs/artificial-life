@@ -6,72 +6,72 @@ public enum ViewModeEnum {
 };
 
 static class ViewModeConfig {
-    ViewModeEnum current = ViewModeEnum.NORMAL;
+    static ViewModeEnum current = ViewModeEnum.NORMAL;
 }
 
 static class AntennaConfig {
-    double generatePerFrame = 1;
-    double energyToBeBorn = 0.8;
-    double organicAfterDeath = 1.5;
-    int size;
+    static float generatePerFrame = 1;
+    static float energyToBeBorn = 0.8;
+    static float organicAfterDeath = 1.5;
+    static int size;
 }
 
 static class GridConfig {
-    int width = 2000;
-    int height = 1000;
+    static int width = 2000;
+    static int height = 1000;
 }
 
 static class GridCellConfig {
-    int size = 40;
-    double initialOrganic = 3.0;
-    double organicPoisoningLimit = 10.0;
-    double initialCharge = 3.0;
-    double normalCharge = 3.0;
-    double poisoningChargeLimit = 10.0;
+    static int size = 40;
+    static float initialOrganic = 3.0;
+    static float organicPoisoningLimit = 10.0;
+    static float initialCharge = 3.0;
+    static float normalCharge = 3.0;
+    static float poisoningChargeLimit = 10.0;
 }
 
 static class LeafConfig {
-    double photosynthesisFactor = 0.005;
-    double energyToBeBorn = 0.8;
-    double organicAfterDeath = 1.5;
-    double width;
-    double length;
+    static float photosynthesisFactor = 0.005;
+    static float energyToBeBorn = 0.8;
+    static float organicAfterDeath = 1.5;
+    static float width;
+    static float length;
     
-    double generatePerFrame(double sunIntensity) {
+    float generatePerFrame(float sunIntensity) {
         return photosynthesisFactor * sunIntensity;
     }
 }
 
 static class OffshootConfig {
-    double probToAppear = 0.2;
-    double consumePerFrame = 0.04;
-    double energyToBeBorn = 0.8;
-    double organicAfterDeath = 1.5;
-    int size;
+    static float probToAppear = 0.2;
+    static float consumePerFrame = 0.04;
+    static float energyToBeBorn = 0.8;
+    static float organicAfterDeath = 1.5;
+    static float size;
 }
 
 static class SeedConfig {
-    double consumePerFrame = 0.02;
+    static float consumePerFrame = 0.02;
 }
 
 static class RootConfig {
-    double generatePerFrame = 0.05;
-    int lifetime = 20;
-    double energyToBeBorn = 0.8;
-    double organicAfterDeath = 1.5;
-    int size;
+    static float generatePerFrame = 0.05;
+    static int lifetime = 20;
+    static float energyToBeBorn = 0.8;
+    static float organicAfterDeath = 1.5;
+    static int size;
 }
 
 static class WoodConfig {
-    int lifetime = 600;
-    double organicAfterDeath = 1.5;
-    int width;
+    static int lifetime = 600;
+    static float organicAfterDeath = 1.5;
+    static int width;
 }
 
 static class SunConfig {
-    double min = 0;
-    double max = 20;
-    double initial = 10;
+    static float min = 0;
+    static float max = 20;
+    static float initial = 10;
 }
 
 static class DNAConfig {

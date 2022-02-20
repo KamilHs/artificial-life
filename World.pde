@@ -1,4 +1,3 @@
-int cellSize = 10;
 int rows, cols;
 int offsetX = 0;
 int offsetY = 0;
@@ -16,20 +15,20 @@ void setup() {
     fullScreen();
     int h = displayHeight - 40;
     
-    rows = displayWidth / cellSize;
+    rows = displayWidth / GridCellConfig.size;
     rows = rows - rows % nbClansPerRow;
-    cols = h / cellSize;
+    cols = h / GridCellConfig.size;
     cols = cols - cols % nbClansPerColumn;
     clanRows = rows / nbClansPerRow;
     clanCols = cols / nbClansPerColumn;
-    offsetX = (displayWidth - rows * cellSize) / 2;
-    offsetY = (h - cols * cellSize) / 2;
+    offsetX = (displayWidth - rows * GridCellConfig.size) / 2;
+    offsetY = (h - cols * GridCellConfig.size) / 2;
+    OffshootConfig.size = GridCellConfig.size / 2;
     grid = new Grid();
     
     for (int i = 0; i < cols; ++i) {
         for (int j = 0; j < rows; ++j) {
-            // if(i == cols / 2 && j == rows/2){
-            if (random(1) < 0.05) {
+            if (random(1) < Offshoot.probToAppear) {
                 Cell cell = new Offshoot(floor(j / clanRows) + floor(i / clanCols) * nbClansPerRow, j, i);
                 cells.add(cell);
                 grid.cells[i][j].cell = cell;
@@ -57,7 +56,7 @@ void draw() {
     textSize(64); 
     fill(0);
     text(int(frameRate), displayWidth - 100, 64);
-
+    
     // cells.removeIf(cell -> !cell.isAlive());
 }
 
