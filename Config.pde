@@ -44,9 +44,11 @@ static class LeafConfig {
 
 static class OffshootConfig {
     static float probToAppear = 0.2;
-    static float consumePerFrame = 0.04;
-    static float energyToBeBorn = 0.8;
+    static float consumePerFrame = 0.004;
+    static float energyToTransform = 0.8;
     static float organicAfterDeath = 1.5;
+    static float maxEatableOrganic = 0.5;
+    static float initialEnergy = 0.3;
     static float size;
 }
 

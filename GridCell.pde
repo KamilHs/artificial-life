@@ -1,6 +1,7 @@
 public class GridCell {
     public int x, y;
     public Cell cell = null;
+    public float organicLevel = GridCellConfig.initialOrganic;
     
     public GridCell(int x, int y) {
         this.x = x;

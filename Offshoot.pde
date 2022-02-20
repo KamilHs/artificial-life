@@ -8,14 +8,13 @@ public class Offshoot extends Cell {
     }
     
     public Offshoot(int sectorId, int x, int y, UUID organizmId, DNA dna, float angle) {
-        super(sectorId, x, y, organizmId);
+        super(sectorId, x, y, organizmId, OffshootConfig.organicAfterDeath);
         this.dna = dna;
         this.angle = angle;
+        energy = OffshootConfig.initialEnergy;
     }
     
-    public void live() {
-        if (!alive) return;
-        
+    public void move() {
         programCounter = programCounter % DNAConfig.movementSize;
         byte command = dna.movementDna[programCounter];
         byte nextCommandCounter = byte((programCounter + 1) % DNAConfig.movementSize);
@@ -56,9 +55,13 @@ public class Offshoot extends Cell {
             
             if (cellInNewPos == null) {
                 programCounter += EatOffsetEnum.EMPTY.getValue();  
+                float gainedEnergy = min(grid.cells[newY][newX].organicLevel, OffshootConfig.maxEatableOrganic);
+                energy += gainedEnergy;
+                grid.cells[newY][newX].organicLevel -= gainedEnergy;
             }
             else {
                 programCounter += EatOffsetEnum.EATABLE_CELL.getValue();
+                energy += cellInNewPos.energy;
                 cellInNewPos.kill();
                 grid.cells[newY][newX].cell = null;
             }
@@ -66,7 +69,18 @@ public class Offshoot extends Cell {
         else {
             programCounter += command;
         }
+    }
+    
+    public void live() {
+        if (!alive) return;
+        energy -= OffshootConfig.consumePerFrame;
         
+        if (energy < 0) {
+            kill();
+            return; 
+        }
+        
+        move();
     }
     
     public void _draw() {
@@ -101,15 +115,6 @@ public class Offshoot extends Cell {
     private int[] getFrontCell() {
         int newX = x + int(cos(angle));
         int newY = y + int(sin(angle));
-        if (newX < 0)
-            newX = rows - 1;
-        else if (newX >= rows)
-            newX = 0;
-        if (newY < 0)
-            newY = cols - 1;
-        else if (newY >= cols)
-            newY = 0;
-        
-        return new int[]{newX, newY};
+        return Utils.wrapCoords(newX, newY, rows, cols);
     }
 }

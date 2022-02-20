@@ -28,7 +28,7 @@ void setup() {
     
     for (int i = 0; i < cols; ++i) {
         for (int j = 0; j < rows; ++j) {
-            if (random(1) < Offshoot.probToAppear) {
+            if (random(1) < OffshootConfig.probToAppear) {
                 Cell cell = new Offshoot(floor(j / clanRows) + floor(i / clanCols) * nbClansPerRow, j, i);
                 cells.add(cell);
                 grid.cells[i][j].cell = cell;
@@ -57,7 +57,7 @@ void draw() {
     fill(0);
     text(int(frameRate), displayWidth - 100, 64);
     
-    // cells.removeIf(cell -> !cell.isAlive());
+    cells.removeIf(cell -> !cell.isAlive());
 }
 
 
