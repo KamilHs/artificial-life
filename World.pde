@@ -1,4 +1,4 @@
-int cellSize = 8;
+int cellSize = 10;
 int rows, cols;
 int offsetX = 0;
 int offsetY = 0;
@@ -10,6 +10,7 @@ int clanCols;
 float translateX = 0.0;
 float translateY = 0.0;
 Grid grid;
+ArrayList<Cell> cells = new ArrayList<Cell>();
 
 void setup() {
     fullScreen();
@@ -24,7 +25,18 @@ void setup() {
     offsetX = (displayWidth - rows * cellSize) / 2;
     offsetY = (h - cols * cellSize) / 2;
     grid = new Grid();
-    frameRate(2000);
+    
+    for (int i = 0; i < cols; ++i) {
+        for (int j = 0; j < rows; ++j) {
+            // if(i == cols / 2 && j == rows/2){
+            if (random(1) < 0.05) {
+                Cell cell = new Offshoot(floor(j / clanRows) + floor(i / clanCols) * nbClansPerRow, j, i);
+                cells.add(cell);
+                grid.cells[i][j].cell = cell;
+            }
+        }
+    }
+    
     noStroke();
 }
 
@@ -34,11 +46,19 @@ void draw() {
     translate(translateX, translateY);
     scale(zoom);
     grid.draw();
+    cells.forEach(cell -> {
+        push();
+        cell.draw();
+        cell.live();
+        pop();
+    });
     popMatrix();
     
     textSize(64); 
     fill(0);
     text(int(frameRate), displayWidth - 100, 64);
+
+    // cells.removeIf(cell -> !cell.isAlive());
 }
 
 
