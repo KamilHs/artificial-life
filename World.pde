@@ -37,6 +37,7 @@ void setup() {
     }
     
     noStroke();
+    textAlign(CENTER, CENTER);
 }
 
 void draw() {
@@ -80,5 +81,11 @@ void keyPressed()
         zoom = 1;
         translateX = 0;
         translateY = 0;
+    }
+    else if (key == '1') {
+        ViewModeConfig.mode = ViewModeEnum.NORMAL;
+    }
+    else if (key == '2') {
+        ViewModeConfig.mode = ViewModeEnum.SECTORS;
     }
 }

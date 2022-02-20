@@ -2,11 +2,24 @@ public enum ViewModeEnum {
     NORMAL,
     ORGANIC,
     CHARGE,
-    CLANS;
+    SECTORS;
 };
 
+static class SectorsConfig {
+    static int[][] colors = new int[][]{
+        {255,0,0},
+        {0,255, 0},
+        {0,0,255},
+        {255,0,255},
+        {255,160,0},
+        {200, 200, 0},
+        {100, 10, 0},
+        {10, 100, 40},
+    };
+}
+
 static class ViewModeConfig {
-    static ViewModeEnum current = ViewModeEnum.NORMAL;
+    static ViewModeEnum mode = ViewModeEnum.NORMAL;
 }
 
 static class AntennaConfig {
@@ -14,11 +27,6 @@ static class AntennaConfig {
     static float energyToBeBorn = 0.8;
     static float organicAfterDeath = 1.5;
     static int size;
-}
-
-static class GridConfig {
-    static int width = 2000;
-    static int height = 1000;
 }
 
 static class GridCellConfig {

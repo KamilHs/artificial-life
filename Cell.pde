@@ -18,7 +18,17 @@ abstract public class Cell {
     abstract public void _draw();
     public void draw() {
         translate(x * GridCellConfig.size + offsetX + GridCellConfig.size / 2, y * GridCellConfig.size + offsetY + GridCellConfig.size / 2);
-        _draw();
+        if (ViewModeConfig.mode == ViewModeEnum.SECTORS) {
+            int[] c = SectorsConfig.colors[sectorId];
+            fill(c[0], c[1], c[2]);
+            rectMode(CENTER);
+            rect(0, 0, GridCellConfig.size, GridCellConfig.size);
+            fill(255);
+            textSize(GridCellConfig.size);
+            text(sectorId + 1, 0, 0);
+        } else {
+            _draw();
+        }
     }
     abstract public void live();
     
