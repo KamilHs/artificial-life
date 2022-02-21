@@ -24,8 +24,8 @@ abstract public class Cell {
             rectMode(CENTER);
             rect(0, 0, GridCellConfig.size, GridCellConfig.size);
             fill(255);
-            textSize(GridCellConfig.size);
-            text(sectorId + 1, 0, 0);
+            textSize((4 * GridCellConfig.size) / 5);
+            text(sectorId + 1, -1, -(GridCellConfig.size / 7));
         } else {
             _draw();
         }
