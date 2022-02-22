@@ -59,7 +59,6 @@ public class Offshoot extends Cell {
         programCounter += EatOffsetEnum.EATABLE_CELL.getValue();
         energy += cellInNewPos.energy;
         cellInNewPos.kill();
-        grid.cells[newY][newX].cell = null;
       }
     } else {
       programCounter += command;
@@ -79,7 +78,7 @@ public class Offshoot extends Cell {
       if (cell != null) {
         cell.parent = wood;
         addedCells.add(cell);
-        grid.cells[y][x].cell = cell;
+        grid.cells[cell.y][cell.x].cell = cell;
         hasChild = true;
       }
     }
@@ -111,7 +110,7 @@ public class Offshoot extends Cell {
 
   public void _draw() {
     rectMode(CENTER);
-    fill(0);
+    fill(0, 0, 0, 100);
     rect(0, 0, OffshootConfig.size, OffshootConfig.size);
   }
 
@@ -130,25 +129,26 @@ public class Offshoot extends Cell {
     int newY = coords[1];
 
     if (grid.cells[newY][newX].cell != null) return null;
+    return new Offshoot(sectorId, newX, newY, organizmId, dna, a, null);
 
-    CellTypeEnum cellType = CellTypeEnum.valueOf(gen);
+    // CellTypeEnum cellType = CellTypeEnum.valueOf(gen);
 
-    if (cellType == null) return null;
+    // if (cellType == null) return null;
 
-    switch(cellType) {
-    case OFFSHOOT:
-      return new Offshoot(sectorId, newX, newY, organizmId, dna, a, null);
-    case LEAF:
-      return null;
-    case ROOT:
-      return null;
-    case ANTENNA:
-      return null;
-    case SEED:
-      return null;
-    default:
-      return null;
-    }
+    // switch(cellType) {
+    // case OFFSHOOT:
+    //   return new Offshoot(sectorId, newX, newY, organizmId, dna, a, null);
+    // case LEAF:
+    //   return null;
+    // case ROOT:
+    //   return null;
+    // case ANTENNA:
+    //   return null;
+    // case SEED:
+    //   return null;
+    // default:
+    //   return null;
+    // }
   }
 }
 
