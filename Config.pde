@@ -30,7 +30,7 @@ static class AntennaConfig {
 }
 
 static class GridCellConfig {
-    static int size = 40;
+    static int size = 10;
     static float initialOrganic = 3.0;
     static float organicPoisoningLimit = 10.0;
     static float initialCharge = 3.0;
@@ -65,9 +65,9 @@ static class SeedConfig {
 }
 
 static class RootConfig {
+    static float initialEnergy = 0.3;
     static float generatePerFrame = 0.05;
     static int lifetime = 20;
-    static float energyToBeBorn = 0.8;
     static float organicAfterDeath = 1.5;
     static int size;
 }

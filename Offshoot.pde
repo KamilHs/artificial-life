@@ -2,16 +2,17 @@ public class Offshoot extends Cell {
     public float angle;
     public int programCounter = 0;
     public DNA dna;
+    public boolean attached;
     
     public Offshoot(int sectorId, int x, int y) {
-        this(sectorId, x, y, UUID.randomUUID(), new DNA(), 0.0);
+        this(sectorId, x, y, UUID.randomUUID(), new DNA(), 0.0, false);
     }
     
-    public Offshoot(int sectorId, int x, int y, UUID organizmId, DNA dna, float angle) {
-        super(sectorId, x, y, organizmId, OffshootConfig.organicAfterDeath);
+    public Offshoot(int sectorId, int x, int y, UUID organizmId, DNA dna, float angle, boolean attached) {
+        super(sectorId, x, y, organizmId, OffshootConfig.initialEnergy, OffshootConfig.organicAfterDeath);
         this.dna = dna;
         this.angle = angle;
-        energy = OffshootConfig.initialEnergy;
+        this.attached = attached;
     }
     
     public void move() {
@@ -71,14 +72,28 @@ public class Offshoot extends Cell {
         }
     }
     
+    public void transform() {
+        Root root = new Root(sectorId, x, y, organizmId, angle);
+        
+        grid.cells[y][x].cell = root;
+        addedCells.add(root);
+        
+        kill();
+    }
+    
     public void live() {
         if (!alive) return;
         energy -= OffshootConfig.consumePerFrame;
         
         if (energy < 0) {
             kill();
-            return; 
+            return;
         }
+        
+        if (energy >= OffshootConfig.energyToTransform)
+            transform();
+        
+        if (attached) return;
         
         move();
     }

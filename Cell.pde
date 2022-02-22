@@ -7,11 +7,12 @@ abstract public class Cell {
     public float energy;
     public float organicAfterDeath;
     
-    public Cell(int sectorId, int x, int y, UUID organizmId, float organicAfterDeath) {
+    public Cell(int sectorId, int x, int y, UUID organizmId, float energy, float organicAfterDeath) {
         this.sectorId = sectorId;
         this.x = x;
         this.y = y;
         this.organizmId = organizmId;
+        this.energy = energy;
         this.organicAfterDeath = organicAfterDeath;
     }
     

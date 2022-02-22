@@ -10,6 +10,8 @@ float translateX = 0.0;
 float translateY = 0.0;
 Grid grid;
 ArrayList<Cell> cells = new ArrayList<Cell>();
+ArrayList<Cell> addedCells = new ArrayList<Cell>();
+
 
 void setup() {
     fullScreen();
@@ -59,6 +61,8 @@ void draw() {
     text(int(frameRate), displayWidth - 100, 64);
     
     cells.removeIf(cell -> !cell.isAlive());
+    addedCells.forEach(cell -> cells.add(cell));
+    addedCells.clear();
 }
 
 
