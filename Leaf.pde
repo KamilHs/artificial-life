@@ -6,6 +6,7 @@ public class Leaf extends Cell {
   public void _draw(){
     rectMode(CENTER);
     fill(0, 200, 0);
+    rotate(QUARTER_PI);
     rect(0, 0, LeafConfig.size, LeafConfig.size);
   }
 
