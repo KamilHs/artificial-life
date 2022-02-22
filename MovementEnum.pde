@@ -25,7 +25,7 @@ public enum MovementEnum {
 }
 
 enum DirectionEnum {
-  RIGHT(1), BACK(2), LEFT(3), FORWARD(4);
+  RIGHT(0), BACK(1), LEFT(2), FORWARD(3);
 
   private final int value;
 
@@ -34,14 +34,14 @@ enum DirectionEnum {
   }
 
   public static DirectionEnum valueOf(int value) {
-    switch((value % 4) + 1) {
-    case 1:
+    switch(value % 4) {
+    case 0:
       return RIGHT;
-    case 2:
+    case 1:
       return BACK;
-    case 3:
+    case 2:
       return LEFT;
-    case 4:
+    case 3:
       return FORWARD;
     default :
       return RIGHT;

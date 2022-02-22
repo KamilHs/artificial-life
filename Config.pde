@@ -67,15 +67,15 @@ static class SeedConfig {
 static class RootConfig {
     static float initialEnergy = 0.3;
     static float generatePerFrame = 0.05;
-    static int lifetime = 20;
     static float organicAfterDeath = 1.5;
     static int size;
 }
 
 static class WoodConfig {
+    static float initialEnergy = 0.3;
     static int lifetime = 600;
     static float organicAfterDeath = 1.5;
-    static int width;
+    static int size;
 }
 
 static class SunConfig {
@@ -86,5 +86,5 @@ static class SunConfig {
 
 static class DNAConfig {
     static int movementSize = 64;
-    static int reproductionSize = 64;
+    static int reproductionSize = 60;
 }

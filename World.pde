@@ -12,6 +12,32 @@ Grid grid;
 ArrayList<Cell> cells = new ArrayList<Cell>();
 ArrayList<Cell> addedCells = new ArrayList<Cell>();
 
+int[] getFrontCell(float a) {
+    int newX = x + int(cos(a));
+    int newY = y + int(sin(a));
+    return Utils.wrapCoords(newX, newY, rows, cols);
+}
+
+
+float rotateTo(float a, DirectionEnum direction) {
+    switch(direction) {
+        case LEFT:
+            a -= HALF_PI;
+            break;
+        case RIGHT:
+            a += HALF_PI;
+            break;
+        case FORWARD:
+            break;
+        case BACK:
+            a += PI;
+            break;
+        default :  
+        break;
+    }
+    
+    return a % TWO_PI;
+}
 
 void setup() {
     fullScreen();
@@ -26,6 +52,7 @@ void setup() {
     offsetX = (displayWidth - rows * GridCellConfig.size) / 2;
     offsetY = (h - cols * GridCellConfig.size) / 2;
     OffshootConfig.size = GridCellConfig.size / 2;
+    WoodConfig.size = GridCellConfig.size / 6;
     grid = new Grid();
     
     for (int i = 0; i < cols; ++i) {

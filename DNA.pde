@@ -1,19 +1,21 @@
 public class DNA {
-    public byte[] movementDna;
-    public byte[] reproductionDna;
+    public byte[] movement;
+    public byte[] reproduction;
     
     public DNA() {
-        movementDna = new byte[DNAConfig.movementSize];
-        reproductionDna = new byte[DNAConfig.reproductionSize];
+        movement = new byte[DNAConfig.movementSize];
+        reproduction = new byte[DNAConfig.reproductionSize];
         
         for (int i = 0; i < DNAConfig.movementSize; ++i) {
-            movementDna[i] = byte(random(DNAConfig.movementSize));
-            reproductionDna[i] = byte(random(DNAConfig.reproductionSize));
+            movement[i] = byte(random(DNAConfig.movementSize));
+        }
+        for (int i = 0; i < DNAConfig.reproductionSize; ++i) {
+            reproduction[i] = byte(random(DNAConfig.reproductionSize));
         }
     }
     
-    public DNA(byte[] movementDna, byte[] reproductionDna) {
-        this.movementDna = movementDna;
-        this.reproductionDna = reproductionDna;
+    public DNA(byte[] movement, byte[] reproduction) {
+        this.movement = movement;
+        this.reproduction = reproduction;
     }
 }
