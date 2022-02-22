@@ -110,7 +110,7 @@ public class Offshoot extends Cell {
 
   public void _draw() {
     rectMode(CENTER);
-    fill(0, 0, 0, 100);
+    fill(0);
     rect(0, 0, OffshootConfig.size, OffshootConfig.size);
   }
 
