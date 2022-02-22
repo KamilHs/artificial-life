@@ -72,8 +72,8 @@ public class Offshoot extends Cell {
     Wood wood = new Wood(sectorId, x, y, organizmId, angle);
 
     grid.cells[y][x].cell = wood;
-    addedCells.add(wood);
 
+    int newY = y - 1 < 0 ? cols - 1: y- 1;
     wood.left = generateChild(dna.reproduction[0], DirectionEnum.LEFT);
     wood.forward = generateChild(dna.reproduction[1], DirectionEnum.FORWARD);
     wood.right = generateChild(dna.reproduction[2], DirectionEnum.RIGHT);
@@ -87,7 +87,10 @@ public class Offshoot extends Cell {
       addedCells.add(wood.right);
     if (wood.back != null)
       addedCells.add(wood.back);
-    kill();
+
+    if(wood.left != null || wood.right != null || wood.forward != null || wood.back != null)
+      addedCells.add(wood);
+    alive = false;
   }
 
   public void live() {
@@ -108,11 +111,8 @@ public class Offshoot extends Cell {
   }
 
   public void _draw() {
-    if (alive)
-      fill(0);
-    else
-      fill(255, 0, 0);
     rectMode(CENTER);
+    fill(0);
     rect(0, 0, OffshootConfig.size, OffshootConfig.size);
   }
 
@@ -121,12 +121,12 @@ public class Offshoot extends Cell {
   }
 
   private int[] getFrontCell() {
-    return getFrontCell(angle);
+    return getFrontCellByCoords(x, y, angle);
   }
 
   private Cell generateChild(byte gen, DirectionEnum direction) {
     float a = rotateTo(angle, direction);
-    int[] coords = getFrontCell(a);
+    int[] coords = getFrontCellByCoords(x, y, a);
     int newX = coords[0];
     int newY = coords[1];
 
@@ -138,7 +138,7 @@ public class Offshoot extends Cell {
 
     switch(cellType) {
     case OFFSHOOT:
-      return new Offshoot(sectorId, x, y, organizmId, dna, a, true);
+      return new Offshoot(sectorId, newX, newY, organizmId, dna, a, true);
     case LEAF:
       return null;
     case ROOT:

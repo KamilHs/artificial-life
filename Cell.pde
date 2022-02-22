@@ -18,6 +18,8 @@ abstract public class Cell {
     
     abstract public void _draw();
     public void draw() {
+        if(!alive) return;
+        
         translate(x * GridCellConfig.size + offsetX + GridCellConfig.size / 2, y * GridCellConfig.size + offsetY + GridCellConfig.size / 2);
         if (ViewModeConfig.mode == ViewModeEnum.SECTORS) {
             int[] c = SectorsConfig.colors[sectorId];

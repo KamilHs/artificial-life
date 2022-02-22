@@ -12,7 +12,7 @@ Grid grid;
 ArrayList<Cell> cells = new ArrayList<Cell>();
 ArrayList<Cell> addedCells = new ArrayList<Cell>();
 
-int[] getFrontCell(float a) {
+int[] getFrontCellByCoords(int x, int y, float a) {
     int newX = x + int(cos(a));
     int newY = y + int(sin(a));
     return Utils.wrapCoords(newX, newY, rows, cols);
@@ -52,7 +52,7 @@ void setup() {
     offsetX = (displayWidth - rows * GridCellConfig.size) / 2;
     offsetY = (h - cols * GridCellConfig.size) / 2;
     OffshootConfig.size = GridCellConfig.size / 2;
-    WoodConfig.size = GridCellConfig.size / 6;
+    WoodConfig.size = GridCellConfig.size / 5;
     grid = new Grid();
     
     for (int i = 0; i < cols; ++i) {

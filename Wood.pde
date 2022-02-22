@@ -8,13 +8,27 @@ public class Wood extends Cell {
     }
     
     public void _draw() {
-        fill(255,0 ,0);
+        fill(0, 255,0 );
         
+        float a = angle;
+        int[] coords;
+        rectMode(CENTER);
+        rect(0, 0, WoodConfig.size + 4, WoodConfig.size + 4);
+        stroke(255, 0, 0);
+        strokeWeight(WoodConfig.size);
         if (left != null) {
-            float a = rotateTo(angle, DirectionEnum.left);
+            line(0, 0, (left.x - x) * GridCellConfig.size, (left.y - y) * GridCellConfig.size);
+        }
+        if (right != null) {
+            line(0, 0, (right.x - x) * GridCellConfig.size, (right.y - y) * GridCellConfig.size);
+        }
+        if (back != null) {
+            line(0, 0, (back.x - x) * GridCellConfig.size, (back.y - y) * GridCellConfig.size);
+        }
+        if (forward != null) {
+            line(0, 0, (forward.x - x) * GridCellConfig.size, (forward.y - y) * GridCellConfig.size);
         }
         
-        rect(0, 0, WoodConfig.size, WoodConfig.size);
     }
     
     public void live() {
