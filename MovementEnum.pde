@@ -68,12 +68,12 @@ enum MoveOffsetEnum {
 };
 
 enum EatOffsetEnum {
-    EATABLE_CELL(2),
-      EMPTY(3),
-      NOT_EATABLE_CELL(4),
-      ORGANIC_POISON(5),
-      CHARGE_POISON(6),
-      SIBLING(7);
+  EATABLE_CELL(2),
+    EMPTY(3),
+    NOT_EATABLE_CELL(4),
+    ORGANIC_POISON(5),
+    CHARGE_POISON(6),
+    SIBLING(7);
 
   private final int value;
 

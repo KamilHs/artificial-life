@@ -14,8 +14,15 @@ public class Wood extends Cell {
     point(0, 0);
     strokeCap(SQUARE);
 
-    for (Cell cell : cells) {
+
+    for (int i = 0; i < 4; ++i) {
+      Cell cell = cells[i];
       if (cell != null) {
+        if(!cell.isAlive()){
+          cells[i] = null;
+          continue;
+        }
+        
         boolean isOnTheEdge = abs(cell.x - x) + abs(cell.y - y) > 1;
 
         if (!isOnTheEdge) {
@@ -30,7 +37,6 @@ public class Wood extends Cell {
           line(0, 0, 0, GridCellConfig.size / 2);
         }
       }
-
     }
   }
 

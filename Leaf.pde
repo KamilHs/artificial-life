@@ -1,5 +1,4 @@
 public class Leaf {
-    public Leaf() {
-        
-    }
+  public Leaf() {
+  }
 }
