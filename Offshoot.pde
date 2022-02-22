@@ -2,17 +2,15 @@ public class Offshoot extends Cell {
   public float angle;
   public int programCounter = 0;
   public DNA dna;
-  public boolean attached;
 
   public Offshoot(int sectorId, int x, int y) {
-    this(sectorId, x, y, UUID.randomUUID(), new DNA(), 0.0, false);
+    this(sectorId, x, y, UUID.randomUUID(), new DNA(), 0.0, null);
   }
 
-  public Offshoot(int sectorId, int x, int y, UUID organizmId, DNA dna, float angle, boolean attached) {
-    super(sectorId, x, y, organizmId, OffshootConfig.initialEnergy, OffshootConfig.organicAfterDeath);
+  public Offshoot(int sectorId, int x, int y, UUID organizmId, DNA dna, float angle, Cell parent) {
+    super(sectorId, x, y, organizmId, OffshootConfig.initialEnergy, OffshootConfig.organicAfterDeath, parent);
     this.dna = dna;
     this.angle = angle;
-    this.attached = attached;
   }
 
   public void move() {
@@ -69,7 +67,7 @@ public class Offshoot extends Cell {
   }
 
   public void transform() {
-    Wood wood = new Wood(sectorId, x, y, organizmId, angle);
+    Wood wood = new Wood(sectorId, x, y, organizmId, angle, parent);
 
     wood.cells[0] = generateChild(dna.reproduction[0], DirectionEnum.RIGHT);
     wood.cells[1] = generateChild(dna.reproduction[1], DirectionEnum.BACK);
@@ -79,6 +77,7 @@ public class Offshoot extends Cell {
     boolean hasChild = false;
     for (Cell cell : wood.cells) {
       if (cell != null) {
+        cell.parent = wood;
         addedCells.add(cell);
         grid.cells[y][x].cell = cell;
         hasChild = true;
@@ -93,8 +92,8 @@ public class Offshoot extends Cell {
     alive = false;
   }
 
-  public void live() {
-    if (!alive) return;
+  public void _live() {
+    if (!alive || parent != null) return;
     energy -= OffshootConfig.consumePerFrame;
 
     if (energy < 0) {
@@ -105,7 +104,7 @@ public class Offshoot extends Cell {
     if (energy >= OffshootConfig.energyToTransform)
       transform();
 
-    if (attached) return;
+    if (parent != null) return;
 
     move();
   }
@@ -138,7 +137,7 @@ public class Offshoot extends Cell {
 
     switch(cellType) {
     case OFFSHOOT:
-      return new Offshoot(sectorId, newX, newY, organizmId, dna, a, true);
+      return new Offshoot(sectorId, newX, newY, organizmId, dna, a, null);
     case LEAF:
       return null;
     case ROOT:

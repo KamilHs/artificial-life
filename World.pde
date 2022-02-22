@@ -67,6 +67,7 @@ void setup() {
     
     noStroke();
     textAlign(CENTER, CENTER);
+    strokeCap(SQUARE);
 }
 
 void draw() {

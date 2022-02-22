@@ -6,19 +6,22 @@ abstract public class Cell {
     public boolean alive = true;
     public float energy;
     public float organicAfterDeath;
+    public Cell parent = null;
     
-    public Cell(int sectorId, int x, int y, UUID organizmId, float energy, float organicAfterDeath) {
+    public Cell(int sectorId, int x, int y, UUID organizmId, float energy, float organicAfterDeath, Cell parent) {
         this.sectorId = sectorId;
         this.x = x;
         this.y = y;
         this.organizmId = organizmId;
         this.energy = energy;
         this.organicAfterDeath = organicAfterDeath;
+        this.parent = parent;
     }
     
     abstract public void _draw();
+    abstract public void _live();
     public void draw() {
-        if(!alive) return;
+        if (!alive) return;
         
         translate(x * GridCellConfig.size + offsetX + GridCellConfig.size / 2, y * GridCellConfig.size + offsetY + GridCellConfig.size / 2);
         if (ViewModeConfig.mode == ViewModeEnum.SECTORS) {
@@ -30,10 +33,35 @@ abstract public class Cell {
             textSize(GridCellConfig.size);
             text(sectorId + 1, 0, 0);
         } else {
+            if (parent != null) {
+                push();
+                stroke(255, 0, 0);
+                strokeWeight(WoodConfig.size);
+                boolean isOnTheEdge = abs(parent.x - x) + abs(parent.y - y) > 1;
+                
+                if (!isOnTheEdge) {
+                    line(0, 0,(parent.x - x) * GridCellConfig.size / 2,(parent.y - y) * GridCellConfig.size / 2);
+                } else if (x < parent.x) {
+                    line(0, 0, -GridCellConfig.size / 2, 0);
+                } else if (x > parent.x) {
+                    line(0, 0, GridCellConfig.size / 2, 0);
+                } else if (y < parent.y) {
+                    line(0, 0,0, -GridCellConfig.size / 2);
+                } else {
+                    line(0, 0,0, GridCellConfig.size / 2);
+                }
+                pop();
+            }
             _draw();
         }
     }
-    abstract public void live();
+    public void live() {
+        if (parent != null && !parent.isAlive()) {
+            parent = null;
+        }
+        
+        _live();
+    }
     
     public boolean isAlive() {
         return alive;
