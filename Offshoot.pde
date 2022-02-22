@@ -71,25 +71,25 @@ public class Offshoot extends Cell {
   public void transform() {
     Wood wood = new Wood(sectorId, x, y, organizmId, angle);
 
-    grid.cells[y][x].cell = wood;
+    wood.cells[0] = generateChild(dna.reproduction[0], DirectionEnum.RIGHT);
+    wood.cells[1] = generateChild(dna.reproduction[1], DirectionEnum.BACK);
+    wood.cells[2] = generateChild(dna.reproduction[2], DirectionEnum.LEFT);
+    wood.cells[3] = generateChild(dna.reproduction[3], DirectionEnum.FORWARD);
 
-    int newY = y - 1 < 0 ? cols - 1: y- 1;
-    wood.left = generateChild(dna.reproduction[0], DirectionEnum.LEFT);
-    wood.forward = generateChild(dna.reproduction[1], DirectionEnum.FORWARD);
-    wood.right = generateChild(dna.reproduction[2], DirectionEnum.RIGHT);
-    wood.back = generateChild(dna.reproduction[3], DirectionEnum.BACK);
-
-    if (wood.left != null)
-      addedCells.add(wood.left);
-    if (wood.forward != null)
-      addedCells.add(wood.forward);
-    if (wood.right != null)
-      addedCells.add(wood.right);
-    if (wood.back != null)
-      addedCells.add(wood.back);
-
-    if(wood.left != null || wood.right != null || wood.forward != null || wood.back != null)
+    boolean hasChild = false;
+    for (Cell cell : wood.cells) {
+      if (cell != null) {
+        addedCells.add(cell);
+        grid.cells[y][x].cell = cell;
+        hasChild = true;
+      }
+    }
+    
+    if (hasChild) {
+      grid.cells[y][x].cell = wood;
       addedCells.add(wood);
+    }
+
     alive = false;
   }
 
@@ -134,7 +134,7 @@ public class Offshoot extends Cell {
 
     CellTypeEnum cellType = CellTypeEnum.valueOf(gen);
 
-    if(cellType == null) return null;
+    if (cellType == null) return null;
 
     switch(cellType) {
     case OFFSHOOT:
