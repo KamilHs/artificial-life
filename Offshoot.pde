@@ -1,5 +1,4 @@
 public class Offshoot extends Cell {
-  public float angle;
   public int programCounter = 0;
   public DNA dna;
 
@@ -8,9 +7,8 @@ public class Offshoot extends Cell {
   }
 
   public Offshoot(int sectorId, int x, int y, UUID organizmId, DNA dna, float angle, Cell parent) {
-    super(sectorId, x, y, organizmId, OffshootConfig.initialEnergy, OffshootConfig.organicAfterDeath, parent);
+    super(sectorId, x, y, organizmId, OffshootConfig.initialEnergy, angle, OffshootConfig.organicAfterDeath, parent);
     this.dna = dna;
-    this.angle = angle;
   }
 
   public void move() {
@@ -103,6 +101,10 @@ public class Offshoot extends Cell {
     if (energy >= OffshootConfig.energyToTransform)
       transform();
 
+    if(parent != null && !parent.isAlive()){
+      parent = null;
+    }
+
     if (parent != null) return;
 
     move();
@@ -129,26 +131,25 @@ public class Offshoot extends Cell {
     int newY = coords[1];
 
     if (grid.cells[newY][newX].cell != null) return null;
-    return new Offshoot(sectorId, newX, newY, organizmId, dna, a, null);
 
-    // CellTypeEnum cellType = CellTypeEnum.valueOf(gen);
+    CellTypeEnum cellType = CellTypeEnum.valueOf(gen);
 
-    // if (cellType == null) return null;
+    if (cellType == null) return null;
 
-    // switch(cellType) {
-    // case OFFSHOOT:
-    //   return new Offshoot(sectorId, newX, newY, organizmId, dna, a, null);
-    // case LEAF:
-    //   return null;
-    // case ROOT:
-    //   return null;
-    // case ANTENNA:
-    //   return null;
-    // case SEED:
-    //   return null;
-    // default:
-    //   return null;
-    // }
+    switch(cellType) {
+    case OFFSHOOT:
+      return new Offshoot(sectorId, newX, newY, organizmId, dna, a, null);
+    case LEAF:
+      return new Leaf(sectorId, newX, newY, organizmId, a, null);
+    case ROOT:
+      return null;
+    case ANTENNA:
+      return null;
+    case SEED:
+      return null;
+    default:
+      return null;
+    }
   }
 }
 

@@ -5,15 +5,17 @@ abstract public class Cell {
     public UUID organizmId;
     public boolean alive = true;
     public float energy;
+    public float angle;
     public float organicAfterDeath;
     public Cell parent = null;
     
-    public Cell(int sectorId, int x, int y, UUID organizmId, float energy, float organicAfterDeath, Cell parent) {
+    public Cell(int sectorId, int x, int y, UUID organizmId, float energy, float angle, float organicAfterDeath, Cell parent) {
         this.sectorId = sectorId;
         this.x = x;
         this.y = y;
         this.organizmId = organizmId;
         this.energy = energy;
+        this.angle = angle;
         this.organicAfterDeath = organicAfterDeath;
         this.parent = parent;
     }

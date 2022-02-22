@@ -1,10 +1,8 @@
 public class Wood extends Cell {
-  public float angle;
   public Cell[] cells = new Cell[4];
 
   public Wood(int sectorId, int x, int y, UUID organizmId, float angle, Cell parent) {
-    super(sectorId, x, y, organizmId, WoodConfig.organicAfterDeath, WoodConfig.initialEnergy, parent);
-    this.angle = angle;
+    super(sectorId, x, y, organizmId, WoodConfig.initialEnergy, angle, WoodConfig.organicAfterDeath, parent);
   }
 
   public void _draw() {
@@ -22,7 +20,7 @@ public class Wood extends Cell {
           cells[i] = null;
           continue;
         }
-        
+
         boolean isOnTheEdge = abs(cell.x - x) + abs(cell.y - y) > 1;
 
         if (!isOnTheEdge) {

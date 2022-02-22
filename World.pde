@@ -52,6 +52,7 @@ void setup() {
   offsetX = (displayWidth - rows * GridCellConfig.size) / 2;
   offsetY = (h - cols * GridCellConfig.size) / 2;
   OffshootConfig.size = GridCellConfig.size / 2;
+  LeafConfig.size = GridCellConfig.size / 2;
   WoodConfig.size = GridCellConfig.size / 5;
   grid = new Grid();
 

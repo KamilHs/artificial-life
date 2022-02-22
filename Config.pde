@@ -42,8 +42,7 @@ static class LeafConfig {
   static float photosynthesisFactor = 0.005;
   static float energyToBeBorn = 0.8;
   static float organicAfterDeath = 1.5;
-  static float width;
-  static float length;
+  static float size;
 
   float generatePerFrame(float sunIntensity) {
     return photosynthesisFactor * sunIntensity;
