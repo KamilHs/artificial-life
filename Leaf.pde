@@ -1,5 +1,5 @@
 public class Leaf extends Cell {
-  public Leaf(int sectorId, int x, int y, UUID organizmId, float angle, Cell parent) {
+  public Leaf(int sectorId, int x, int y, UUID organizmId, float angle, Wood parent) {
     super(sectorId, x, y, organizmId, RootConfig.initialEnergy, angle, RootConfig.organicAfterDeath, parent);
   }
 
@@ -11,10 +11,12 @@ public class Leaf extends Cell {
   }
 
   public void _live(){
-    if(!alive) return;
-    if(parent != null && !parent.isAlive()){
+    if(!alive || parent == null) return;
+    if(!parent.isAlive()){
       kill();
       return;
     }
+
+    parent.energy += LeafConfig.generatePerFrame(1.0);
   }
 }

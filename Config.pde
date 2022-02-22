@@ -39,12 +39,12 @@ static class GridCellConfig {
 }
 
 static class LeafConfig {
-  static float photosynthesisFactor = 0.005;
+  static float photosynthesisFactor = 0.05;
   static float energyToBeBorn = 0.8;
   static float organicAfterDeath = 1.5;
   static float size;
 
-  float generatePerFrame(float sunIntensity) {
+  static float generatePerFrame(float sunIntensity) {
     return photosynthesisFactor * sunIntensity;
   }
 }

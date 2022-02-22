@@ -7,9 +7,9 @@ abstract public class Cell {
     public float energy;
     public float angle;
     public float organicAfterDeath;
-    public Cell parent = null;
+    public Wood parent = null;
     
-    public Cell(int sectorId, int x, int y, UUID organizmId, float energy, float angle, float organicAfterDeath, Cell parent) {
+    public Cell(int sectorId, int x, int y, UUID organizmId, float energy, float angle, float organicAfterDeath, Wood parent) {
         this.sectorId = sectorId;
         this.x = x;
         this.y = y;

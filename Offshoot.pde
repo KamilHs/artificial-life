@@ -6,7 +6,7 @@ public class Offshoot extends Cell {
     this(sectorId, x, y, UUID.randomUUID(), new DNA(), 0.0, null);
   }
 
-  public Offshoot(int sectorId, int x, int y, UUID organizmId, DNA dna, float angle, Cell parent) {
+  public Offshoot(int sectorId, int x, int y, UUID organizmId, DNA dna, float angle, Wood parent) {
     super(sectorId, x, y, organizmId, OffshootConfig.initialEnergy, angle, OffshootConfig.organicAfterDeath, parent);
     this.dna = dna;
   }
@@ -64,12 +64,16 @@ public class Offshoot extends Cell {
   }
 
   public void transform() {
+    if(parent !=null) {
+      parent.energy -= OffshootConfig.energyToTransform;
+    }
     Wood wood = new Wood(sectorId, x, y, organizmId, angle, parent);
+    byte genOffset = byte(dna.activeReproductionGen * 4);
 
-    wood.cells[0] = generateChild(dna.reproduction[0], DirectionEnum.RIGHT);
-    wood.cells[1] = generateChild(dna.reproduction[1], DirectionEnum.BACK);
-    wood.cells[2] = generateChild(dna.reproduction[2], DirectionEnum.LEFT);
-    wood.cells[3] = generateChild(dna.reproduction[3], DirectionEnum.FORWARD);
+    wood.cells[0] = generateChild(dna.reproduction[genOffset], DirectionEnum.RIGHT);
+    wood.cells[1] = generateChild(dna.reproduction[genOffset + 1], DirectionEnum.BACK);
+    wood.cells[2] = generateChild(dna.reproduction[genOffset + 2], DirectionEnum.LEFT);
+    wood.cells[3] = generateChild(dna.reproduction[genOffset + 3], DirectionEnum.FORWARD);
 
     boolean hasChild = false;
     for (Cell cell : wood.cells) {
@@ -82,6 +86,9 @@ public class Offshoot extends Cell {
     }
     
     if (hasChild) {
+      if(parent != null){
+        parent.replaceChild(this, wood);
+      }
       grid.cells[y][x].cell = wood;
       addedCells.add(wood);
     }
@@ -90,20 +97,21 @@ public class Offshoot extends Cell {
   }
 
   public void _live() {
-    if (!alive || parent != null) return;
-    energy -= OffshootConfig.consumePerFrame;
+    if (!alive) return;
+    if(parent == null) {
+      energy -= OffshootConfig.consumePerFrame;
+    }
+    else if(parent.energy > 0.3) {
+      println("parent.energy: "+parent.energy);
+    }
 
     if (energy < 0) {
       kill();
       return;
     }
 
-    if (energy >= OffshootConfig.energyToTransform)
+    if (energy >= OffshootConfig.energyToTransform || parent != null && parent.energy >= OffshootConfig.energyToTransform)
       transform();
-
-    if(parent != null && !parent.isAlive()){
-      parent = null;
-    }
 
     if (parent != null) return;
 
@@ -138,7 +146,7 @@ public class Offshoot extends Cell {
 
     switch(cellType) {
     case OFFSHOOT:
-      return new Offshoot(sectorId, newX, newY, organizmId, dna, a, null);
+      return new Offshoot(sectorId, newX, newY, organizmId, new DNA(dna, gen), a, null);
     case LEAF:
       return new Leaf(sectorId, newX, newY, organizmId, a, null);
     case ROOT:
@@ -164,7 +172,7 @@ enum CellTypeEnum {
   }
 
   public static CellTypeEnum valueOf(int value) {
-    if (value > 15) return null;
+    if (value > 14) return null;
 
     switch(value % 5) {
     case 0:

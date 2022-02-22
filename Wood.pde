@@ -1,7 +1,7 @@
 public class Wood extends Cell {
   public Cell[] cells = new Cell[4];
 
-  public Wood(int sectorId, int x, int y, UUID organizmId, float angle, Cell parent) {
+  public Wood(int sectorId, int x, int y, UUID organizmId, float angle, Wood parent) {
     super(sectorId, x, y, organizmId, WoodConfig.initialEnergy, angle, WoodConfig.organicAfterDeath, parent);
   }
 
@@ -16,7 +16,7 @@ public class Wood extends Cell {
     for (int i = 0; i < 4; ++i) {
       Cell cell = cells[i];
       if (cell != null) {
-        if(!cell.isAlive()){
+        if (!cell.isAlive()) {
           cells[i] = null;
           continue;
         }
@@ -34,6 +34,16 @@ public class Wood extends Cell {
         } else {
           line(0, 0, 0, GridCellConfig.size / 2);
         }
+      }
+    }
+  }
+
+  public void replaceChild(Cell prevChild, Cell newChild) {
+    for (int i = 0; i < 4; ++i) {
+      if (prevChild == cells[i])
+      {
+        cells[i] = newChild;
+        return;
       }
     }
   }
