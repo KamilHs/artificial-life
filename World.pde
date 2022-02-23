@@ -73,7 +73,7 @@ void setup() {
 int n = 0;
   for (int i = 0; i < cols; ++i) {
     for (int j = 0; j < rows; ++j) {
-      if (random(1) < OffshootConfig.probToAppear) {
+      if (j % 3 == 0 && i % 3 == 0) {
         Cell cell = new Offshoot(floor(j / clanRows) + floor(i / clanCols) * nbClansPerRow, j, i);
         cells.add(cell);
         n++;

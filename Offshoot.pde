@@ -50,14 +50,21 @@ public class Offshoot extends Cell {
 
       if (cellInNewPos == null) {
         programCounter += EatOffsetEnum.EMPTY.getValue();
-        float gainedEnergy = min(grid.cells[newY][newX].organicLevel, OffshootConfig.maxEatableOrganic);
-        energy += gainedEnergy;
-        grid.cells[newY][newX].organicLevel -= gainedEnergy;
-      } else if(cellInNewPos instanceof Wood || cellInNewPos instanceof Root){
+        
+        if(parent == null){
+          float gainedEnergy = min(grid.cells[newY][newX].organicLevel, OffshootConfig.maxEatableOrganic);
+          energy += gainedEnergy;
+          grid.cells[newY][newX].organicLevel -= gainedEnergy;
+        }
+
+      } else if (cellInNewPos instanceof Wood || cellInNewPos instanceof Root) {
         programCounter += EatOffsetEnum.NOT_EATABLE_CELL.getValue();
-      }else{
+      } else {
         programCounter += EatOffsetEnum.EATABLE_CELL.getValue();
-        energy += cellInNewPos.energy;
+        if (parent == null)
+          energy += OffshootConfig.maxEatableOrganic;
+        else
+          parent.storage.addEnergy(OffshootConfig.maxEatableOrganic);
         cellInNewPos.kill();
       }
     } else {
@@ -66,7 +73,7 @@ public class Offshoot extends Cell {
   }
 
   public void transform() {
-    if(parent !=null) {
+    if (parent != null) {
       parent.storage.addEnergy(-OffshootConfig.energyToTransform);
     }
     Wood wood = new Wood(sectorId, x, y, organizmId, angle, parent);
@@ -86,9 +93,9 @@ public class Offshoot extends Cell {
         hasChild = true;
       }
     }
-    
+
     if (hasChild) {
-      if(parent != null){
+      if (parent != null) {
         parent.replaceChild(this, wood);
       }
       grid.cells[y][x].cell = wood;
@@ -100,11 +107,8 @@ public class Offshoot extends Cell {
 
   public void _live() {
     if (!alive) return;
-    if(parent == null) {
+    if (parent == null) {
       energy -= OffshootConfig.consumePerFrame;
-    }
-    else {
-      parent.storage.addEnergy(-OffshootConfig.consumePerFrame);
     }
 
     if (energy < 0 || parent != null && !parent.isAlive()) {

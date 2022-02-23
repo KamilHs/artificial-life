@@ -41,7 +41,7 @@ static class GridCellConfig {
 }
 
 static class LeafConfig {
-  static float photosynthesisFactor = 0.05;
+  static float photosynthesisFactor = 0.06;
   static float energyToBeBorn = 0.8;
   static float organicAfterDeath = 1.5;
   static float size;
@@ -52,12 +52,12 @@ static class LeafConfig {
 }
 
 static class OffshootConfig {
-  static float probToAppear = 0.2;
+  static float probToAppear = 0.15;
   static float consumePerFrame = 0.004;
-  static float energyToTransform = 0.8;
+  static float energyToTransform = 0.7;
   static float organicAfterDeath = 1.5;
   static float maxEatableOrganic = 0.5;
-  static float initialEnergy = 0.3;
+  static float initialEnergy = 0.4;
   static float size;
 }
 
@@ -67,14 +67,14 @@ static class SeedConfig {
 
 static class RootConfig {
   static float initialEnergy = 0.3;
-  static float generatePerFrame = 0.05;
+  static float generatePerFrame = 0.06;
   static float organicAfterDeath = 1.5;
   static int size;
 }
 
 static class WoodConfig {
   static float initialEnergy = 0.3;
-  static int lifetime = 100;
+  static int lifetime = 200;
   static float organicAfterDeath = 1.5;
   static float size;
 }
