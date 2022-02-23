@@ -8,7 +8,7 @@ public class Wood extends Cell {
   }
 
   public void _draw() {
-    stroke(255, 0, 0);
+    stroke(128, 0, 0);
     strokeWeight(WoodConfig.size);
     strokeCap(PROJECT);
     point(0, 0);

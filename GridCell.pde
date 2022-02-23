@@ -9,7 +9,15 @@ public class GridCell {
   }
 
   void draw() {
-    fill((x + y) % 2 == 0 ? 255 : 240);
-    rect(x * GridCellConfig.size + offsetX, y * GridCellConfig.size + offsetY, GridCellConfig.size, GridCellConfig.size);
+    if (ViewModeConfig.mode == ViewModeEnum.ORGANIC) {
+      int[] c = getOrganicLevelColor(organicLevel);
+      fill(c[0], c[1], c[2]);
+    } else {
+      if (organicLevel > GridCellConfig.organicPoisoningLimit)
+        fill(255, 0, 0);
+      else
+        fill((x + y) % 2 == 0 ? 255 : 240);
+    }
+    rect(x *GridCellConfig.size + offsetX, y * GridCellConfig.size + offsetY, GridCellConfig.size, GridCellConfig.size);
   }
 }

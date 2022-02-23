@@ -34,10 +34,10 @@ abstract public class Cell {
             fill(255);
             textSize(GridCellConfig.size);
             text(sectorId + 1, 0, 0);
-        } else {
+        }else {
             if (parent != null) {
                 push();
-                stroke(255, 0, 0);
+                stroke(128, 0, 0);
                 strokeWeight(WoodConfig.size);
                 boolean isOnTheEdge = abs(parent.x - x) + abs(parent.y - y) > 1;
                 

@@ -39,6 +39,19 @@ float rotateTo(float a, DirectionEnum direction) {
   return a % TWO_PI;
 }
 
+int[] mapValueToColor(float curr, float min, float max, int[] overflowColor){
+  if(curr < min) return new int[]{255,255,255};
+  if(curr > max) return overflowColor;
+
+  int mappedColor = int(map(curr, min, max, 255, 0));
+
+  return new int[]{mappedColor, mappedColor, mappedColor};
+}
+
+int[] getOrganicLevelColor(float level){
+  return mapValueToColor(level, GridCellConfig.initialOrganic, GridCellConfig.organicPoisoningLimit, GridCellConfig.poisoningOrganicColor);
+}
+
 void setup() {
   fullScreen();
   int h = displayHeight - 40;
@@ -53,18 +66,20 @@ void setup() {
   offsetY = (h - cols * GridCellConfig.size) / 2;
   OffshootConfig.size = GridCellConfig.size / 2;
   LeafConfig.size = GridCellConfig.size / 2;
-  WoodConfig.size = max(GridCellConfig.size / 5, 1);
+  WoodConfig.size = max(GridCellConfig.size / 5, 0.5);
   grid = new Grid();
-
+int n = 0;
   for (int i = 0; i < cols; ++i) {
     for (int j = 0; j < rows; ++j) {
       if (random(1) < OffshootConfig.probToAppear) {
         Cell cell = new Offshoot(floor(j / clanRows) + floor(i / clanCols) * nbClansPerRow, j, i);
         cells.add(cell);
+        n++;
         grid.cells[i][j].cell = cell;
       }
     }
   }
+  println(n);
 
   noStroke();
   textAlign(CENTER, CENTER);
@@ -118,5 +133,7 @@ void keyPressed()
     ViewModeConfig.mode = ViewModeEnum.NORMAL;
   } else if (key == '2') {
     ViewModeConfig.mode = ViewModeEnum.SECTORS;
+  } else if (key == '3') {
+    ViewModeConfig.mode = ViewModeEnum.ORGANIC;
   }
 }
