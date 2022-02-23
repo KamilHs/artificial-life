@@ -147,7 +147,7 @@ public class Offshoot extends Cell {
     case LEAF:
       return new Leaf(sectorId, newX, newY, organizmId, a, null);
     case ROOT:
-      return null;
+      return new Root(sectorId, newX, newY, organizmId, a, null);
     case ANTENNA:
       return null;
     case SEED:

@@ -66,6 +66,7 @@ void setup() {
   offsetY = (h - cols * GridCellConfig.size) / 2;
   OffshootConfig.size = GridCellConfig.size / 2;
   LeafConfig.size = GridCellConfig.size / 2;
+  RootConfig.size = GridCellConfig.size / 2;
   WoodConfig.size = max(GridCellConfig.size / 5, 0.5);
   grid = new Grid();
 int n = 0;
