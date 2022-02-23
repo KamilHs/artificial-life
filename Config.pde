@@ -35,7 +35,7 @@ static class AntennaConfig {
 }
 
 static class GridCellConfig {
-  static int size = 4;
+  static int size = 2;
   static float initialOrganic = 3.0;
   static int[] poisoningOrganicColor = new int[]{255, 0, 0};
   static int[] poisoningChargeColor = new int[]{0, 0, 255};
@@ -94,4 +94,9 @@ static class DNAConfig {
   static int movementSize = 64;
   static int reproductionSize = 25;
   static float mutationRate = 0.01;
+}
+
+static class ScreenshotsConfig  {
+  static int interval = 100;
+  static boolean enabled = true;
 }

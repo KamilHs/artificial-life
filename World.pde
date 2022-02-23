@@ -80,7 +80,7 @@ void setup() {
   int n = 0;
   for (int i = 0; i < cols; ++i) {
     for (int j = 0; j < rows; ++j) {
-      if (j % 6 == 0 && i % 6 == 0 && grid.cells[i][j].canInitiallySpawned()) {
+      if (j % 4 == 0 && i % 4 == 0 && grid.cells[i][j].canInitiallySpawned()) {
         Cell cell = new Offshoot(floor(j / clanRows) + floor(i / clanCols) * nbClansPerRow, j, i);
         cells.add(cell);
         n++;
@@ -101,11 +101,11 @@ void draw() {
   pushMatrix();
   translate(translateX, translateY);
   scale(zoom);
-  if(show){
+  if(show || ScreenshotsConfig.enabled && frameCount % ScreenshotsConfig.interval == 0){
   grid.draw();
   }
   cells.forEach(cell -> {
-  if(show){
+  if(show || ScreenshotsConfig.enabled && frameCount % ScreenshotsConfig.interval == 0){
     push();
     cell.draw();
     pop();
@@ -113,6 +113,9 @@ void draw() {
     cell.live();
   });
   popMatrix();
+
+  if(ScreenshotsConfig.enabled && frameCount % ScreenshotsConfig.interval == 0)
+  saveFrame("./screenshots/frame-" + frameCount + ".png");
   
   textSize(64);
   fill(0);
