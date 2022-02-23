@@ -90,7 +90,7 @@ abstract public class Cell {
             neighbor.organicLevel = organicPerCell;
         });
 
-            grid.cells[y][x].chargeLevel += energy;
+        grid.cells[y][x].chargeLevel += min(energy, GridCellConfig.maxChargeAfterDeath);
         
         alive = false;
     }

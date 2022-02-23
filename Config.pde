@@ -42,6 +42,7 @@ static class GridCellConfig {
   static float organicPoisoningLimit = 10.0;
   static float initialCharge = 3.0;
   static float normalCharge = 3.0;
+  static float maxChargeAfterDeath = 3.0;
   static float poisoningChargeLimit = 10.0;
 }
 
