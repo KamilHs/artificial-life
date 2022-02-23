@@ -5,7 +5,7 @@ public class Wood extends Cell {
 
   public Wood(int sectorId, int x, int y, UUID organizmId, float angle, Wood parent) {
     super(sectorId, x, y, organizmId, WoodConfig.initialEnergy, angle, WoodConfig.organicAfterDeath, parent);
-    storage = parent != null ? parent.storage: new EnergyStorage(WoodConfig.initialEnergy);
+    storage = parent != null ? parent.storage: new EnergyStorage(0);
   }
 
   public void _draw() {

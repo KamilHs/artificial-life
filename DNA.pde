@@ -18,7 +18,17 @@ public class DNA {
 
   public DNA(DNA dna, byte activeReproductionGen) {
     movement = dna.movement.clone();
-    reproduction = dna.reproduction.clone();
+    reproduction = dna.reproduction.clone(); 
     this.activeReproductionGen = activeReproductionGen;
+    mutate();
+  }
+
+  public void mutate(){
+    for (int i = 0; i < DNAConfig.movementSize; ++i) {
+      movement[i] = random(1) < DNAConfig.mutationRate ? byte(random(DNAConfig.movementSize)): movement[i];
+    }
+    for (int i = 0; i < DNAConfig.reproductionSize; ++i) {
+      reproduction[i] = random(1) < DNAConfig.mutationRate ? byte(random(DNAConfig.movementSize)) : reproduction[i];
+    }
   }
 }

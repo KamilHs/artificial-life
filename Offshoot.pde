@@ -11,7 +11,7 @@ public class Offshoot extends Cell {
     this.dna = dna;
   }
 
-  public void move() {
+  public void update() {
     programCounter = programCounter % DNAConfig.movementSize;
     byte command = dna.movement[programCounter];
     byte nextCommandCounter = byte((programCounter + 1) % DNAConfig.movementSize);
@@ -19,10 +19,10 @@ public class Offshoot extends Cell {
     MovementEnum commandEnum = MovementEnum.valueOf(command);
     DirectionEnum nextCommandEnum = DirectionEnum.valueOf(nextCommand);
 
-    if (commandEnum == MovementEnum.ROTATE) {
+    if (commandEnum == MovementEnum.ROTATE && parent == null) {
       this.rotate(nextCommandEnum);
       programCounter++;
-    } else if (commandEnum == MovementEnum.MOVE) {
+    } else if (commandEnum == MovementEnum.MOVE && parent == null) {
       this.rotate(nextCommandEnum);
       int[] newCellCords = getFrontCell();
       int newX = newCellCords[0];
@@ -102,7 +102,7 @@ public class Offshoot extends Cell {
       energy -= OffshootConfig.consumePerFrame;
     }
 
-    if (energy < 0) {
+    if (energy < 0 || parent != null && !parent.isAlive()) {
       kill();
       return;
     }
@@ -110,9 +110,7 @@ public class Offshoot extends Cell {
     if (energy >= OffshootConfig.energyToTransform || parent != null && parent.storage.energy >= OffshootConfig.energyToTransform)
       transform();
 
-    if (parent != null) return;
-
-    move();
+    update();
   }
 
   public void _draw() {

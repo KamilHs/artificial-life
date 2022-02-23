@@ -11,7 +11,7 @@ public class Root extends Cell {
 
   public void _live(){
     if(!alive) return;
-    if(parent ==null || !parent.isAlive()){
+    if(parent == null || !parent.isAlive()){
       kill();
       return;
     }

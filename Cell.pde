@@ -58,10 +58,6 @@ abstract public class Cell {
         }
     }
     public void live() {
-        if (parent != null && !parent.isAlive()) {
-            parent = null;
-        }
-        
         _live();
     }
     
