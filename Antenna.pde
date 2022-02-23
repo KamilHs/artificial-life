@@ -11,7 +11,7 @@ public class Antenna extends Cell {
 
   public void _live(){
     if(!alive) return;
-    if(parent == null || !parent.isAlive()){
+    if(parent == null || !parent.isAlive() || grid.cells[y][x].isOrganicallyPoisoned()){
       kill();
       return;
     }

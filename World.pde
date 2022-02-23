@@ -70,10 +70,11 @@ void setup() {
   AntennaConfig.size = GridCellConfig.size / 2;
   WoodConfig.size = max(GridCellConfig.size / 5, 0.5);
   grid = new Grid();
-int n = 0;
+
+  int n = 0;
   for (int i = 0; i < cols; ++i) {
     for (int j = 0; j < rows; ++j) {
-      if (j % 3 == 0 && i % 3 == 0) {
+      if (j % 2 == 0 && i % 2 == 0 && grid.cells[i][j].canInitiallySpawned()) {
         Cell cell = new Offshoot(floor(j / clanRows) + floor(i / clanCols) * nbClansPerRow, j, i);
         cells.add(cell);
         n++;
@@ -101,7 +102,7 @@ void draw() {
     pop();
   });
   popMatrix();
-
+  
   textSize(64);
   fill(0);
   text(int(frameRate), displayWidth - 100, 64);

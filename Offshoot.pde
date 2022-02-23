@@ -111,7 +111,7 @@ public class Offshoot extends Cell {
       energy -= OffshootConfig.consumePerFrame;
     }
 
-    if (energy < 0 || parent != null && !parent.isAlive()) {
+    if (energy < 0 || grid.cells[y][x].isOrganicallyPoisoned() || parent != null && !parent.isAlive()) {
       kill();
       return;
     }

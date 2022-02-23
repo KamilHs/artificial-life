@@ -56,6 +56,8 @@ public class Wood extends Cell {
       storage = new EnergyStorage(0);
       parent = null;
     }
+    if(grid.cells[y][x].isOrganicallyPoisoned())
+      kill();
     if(age++ > WoodConfig.lifetime) kill();
   }
 }

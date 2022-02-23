@@ -12,11 +12,12 @@ public class Leaf extends Cell {
 
   public void _live(){
     if(!alive) return;
-    if(parent == null || !parent.isAlive()){
+    if(parent == null || !parent.isAlive() || grid.cells[y][x].isOrganicallyPoisoned()){
       kill();
       return;
     }
 
-    parent.storage.addEnergy(LeafConfig.generatePerFrame(1.0));
+    if(grid.cells[y][x].hasSun())
+      parent.storage.addEnergy(LeafConfig.generatePerFrame(1.0));
   }
 }

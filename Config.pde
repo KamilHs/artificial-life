@@ -16,6 +16,10 @@ static class SectorsConfig {
     {100, 10, 0},
     {10, 100, 40},
   };
+
+  static int borderWidth = 2;
+  static int noSpawnNoSun = 6;
+  static int noSunZoneWidth = 16;
 }
 
 static class ViewModeConfig {
