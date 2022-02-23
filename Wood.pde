@@ -52,6 +52,6 @@ public class Wood extends Cell {
   }
 
   public void _live() {
-    if(age++ > WoodConfig.lifetime || storage.energy < 0) kill();
+    if(age++ > WoodConfig.lifetime) kill();
   }
 }
