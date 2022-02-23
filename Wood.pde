@@ -2,10 +2,10 @@ public class Wood extends Cell {
   public Cell[] cells = new Cell[4];
   public EnergyStorage storage;
   public int age = 0;
+  public float energy = 0;
 
   public Wood(int sectorId, int x, int y, UUID organizmId, float angle, Wood parent) {
     super(sectorId, x, y, organizmId, WoodConfig.initialEnergy, angle, WoodConfig.organicAfterDeath, parent);
-    storage = parent != null ? parent.storage: new EnergyStorage(0);
   }
 
   public void _draw() {
@@ -53,7 +53,6 @@ public class Wood extends Cell {
 
   public void _live() {
     if(parent != null && !parent.isAlive()){
-      storage = new EnergyStorage(0);
       parent = null;
     }
     if(age++ > WoodConfig.lifetime || grid.cells[y][x].isOrganicallyPoisoned()) 

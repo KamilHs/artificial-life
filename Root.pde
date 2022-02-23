@@ -18,6 +18,6 @@ public class Root extends Cell {
 
     float gainedEnergy = min(grid.cells[y][x].organicLevel, RootConfig.generatePerFrame);
     grid.cells[y][x].organicLevel -= gainedEnergy;
-    parent.storage.addEnergy(gainedEnergy);
+    parent.energy += gainedEnergy;
   }
 }

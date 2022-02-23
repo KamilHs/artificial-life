@@ -18,6 +18,6 @@ public class Antenna extends Cell {
 
     float gainedEnergy = min(grid.cells[y][x].chargeLevel, AntennaConfig.generatePerFrame);
     grid.cells[y][x].chargeLevel -= gainedEnergy;
-    parent.storage.addEnergy(gainedEnergy);
+    parent.energy += gainedEnergy;
   }
 }

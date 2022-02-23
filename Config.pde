@@ -35,7 +35,7 @@ static class AntennaConfig {
 }
 
 static class GridCellConfig {
-  static int size = 4;
+  static int size = 2;
   static float initialOrganic = 3.0;
   static int[] poisoningOrganicColor = new int[]{255, 0, 0};
   static float organicPoisoningLimit = 10.0;

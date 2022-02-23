@@ -18,6 +18,6 @@ public class Leaf extends Cell {
     }
 
     if(grid.cells[y][x].hasSun())
-      parent.storage.addEnergy(LeafConfig.generatePerFrame(1.0));
+      parent.energy += LeafConfig.generatePerFrame(1.0);
   }
 }

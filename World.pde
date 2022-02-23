@@ -9,6 +9,7 @@ int clanCols;
 float translateX = 0.0;
 float translateY = 0.0;
 Grid grid;
+boolean show = true;
 ArrayList<Cell> cells = new ArrayList<Cell>();
 ArrayList<Cell> addedCells = new ArrayList<Cell>();
 
@@ -56,6 +57,7 @@ void setup() {
   fullScreen();
   int h = displayHeight - 40;
 
+  frameRate(2000);
   rows = displayWidth / GridCellConfig.size;
   rows = rows - rows % nbClansPerRow;
   cols = h / GridCellConfig.size;
@@ -74,7 +76,7 @@ void setup() {
   int n = 0;
   for (int i = 0; i < cols; ++i) {
     for (int j = 0; j < rows; ++j) {
-      if (j % 2 == 0 && i % 2 == 0 && grid.cells[i][j].canInitiallySpawned()) {
+      if (j % 3 == 0 && i % 3 == 0 && grid.cells[i][j].canInitiallySpawned()) {
         Cell cell = new Offshoot(floor(j / clanRows) + floor(i / clanCols) * nbClansPerRow, j, i);
         cells.add(cell);
         n++;
@@ -91,15 +93,20 @@ void setup() {
 
 void draw() {
   background(100);
+
   pushMatrix();
   translate(translateX, translateY);
   scale(zoom);
+  if(show){
   grid.draw();
+  }
   cells.forEach(cell -> {
+  if(show){
     push();
     cell.draw();
-    cell.live();
     pop();
+  }
+    cell.live();
   });
   popMatrix();
   
@@ -138,5 +145,7 @@ void keyPressed()
     ViewModeConfig.mode = ViewModeEnum.SECTORS;
   } else if (key == '3') {
     ViewModeConfig.mode = ViewModeEnum.ORGANIC;
+  } else if (key == 'h') {
+    show = !show;
   }
 }
