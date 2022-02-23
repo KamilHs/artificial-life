@@ -9,7 +9,7 @@ int clanCols;
 float translateX = 0.0;
 float translateY = 0.0;
 Grid grid;
-boolean show = true;
+boolean show = false;
 ArrayList<Cell> cells = new ArrayList<Cell>();
 ArrayList<Cell> addedCells = new ArrayList<Cell>();
 
@@ -101,9 +101,7 @@ void draw() {
   pushMatrix();
   translate(translateX, translateY);
   scale(zoom);
-  if(show || ScreenshotsConfig.enabled && frameCount % ScreenshotsConfig.interval == 0){
-  grid.draw();
-  }
+  grid.render();
   cells.forEach(cell -> {
   if(show || ScreenshotsConfig.enabled && frameCount % ScreenshotsConfig.interval == 0){
     push();
@@ -115,7 +113,7 @@ void draw() {
   popMatrix();
 
   if(ScreenshotsConfig.enabled && frameCount % ScreenshotsConfig.interval == 0)
-  saveFrame("./screenshots/frame-" + frameCount + ".png");
+    saveFrame("./screenshots/frame-" + frameCount + ".png");
   
   textSize(64);
   fill(0);

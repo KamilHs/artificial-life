@@ -27,7 +27,7 @@ static class ViewModeConfig {
 }
 
 static class AntennaConfig {
-  static float generatePerFrame = 1;
+  static float generatePerFrame = 0.3;
   static float energyToBeBorn = 0.8;
   static float organicAfterDeath = 1.5;
   static float initialEnergy = 0.3;
@@ -73,7 +73,7 @@ static class SeedConfig {
 
 static class RootConfig {
   static float initialEnergy = 0.3;
-  static float generatePerFrame = 0.06;
+  static float generatePerFrame = 0.04;
   static float organicAfterDeath = 1.5;
   static int size;
 }
@@ -98,6 +98,6 @@ static class DNAConfig {
 }
 
 static class ScreenshotsConfig  {
-  static int interval = 100;
-  static boolean enabled = true;
+  static int interval = 15;
+  static boolean enabled = false;
 }
