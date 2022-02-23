@@ -2,10 +2,15 @@ public class GridCell {
   public int x, y;
   public Cell cell = null;
   public float organicLevel = GridCellConfig.initialOrganic;
+  public float chargeLevel = GridCellConfig.initialCharge;
 
   public GridCell(int x, int y) {
     this.x = x;
     this.y = y;
+  }
+
+  void update() {
+    chargeLevel = Utils.normaliseCharge(chargeLevel, GridCellConfig.normalCharge);
   }
 
   void draw() {
@@ -15,6 +20,8 @@ public class GridCell {
     } else {
       if (organicLevel > GridCellConfig.organicPoisoningLimit)
         fill(255, 0, 0);
+      else if(chargeLevel > GridCellConfig.poisoningChargeLimit)
+        fill(0, 0, 255);
       else
         fill((x + y) % 2 == 0 ? 255 : 240);
     }

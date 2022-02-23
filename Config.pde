@@ -26,11 +26,12 @@ static class AntennaConfig {
   static float generatePerFrame = 1;
   static float energyToBeBorn = 0.8;
   static float organicAfterDeath = 1.5;
+  static float initialEnergy = 0.3;
   static int size;
 }
 
 static class GridCellConfig {
-  static int size = 4;
+  static int size = 2;
   static float initialOrganic = 3.0;
   static int[] poisoningOrganicColor = new int[]{255, 0, 0};
   static float organicPoisoningLimit = 10.0;
@@ -44,14 +45,14 @@ static class LeafConfig {
   static float energyToBeBorn = 0.8;
   static float organicAfterDeath = 1.5;
   static float size;
-
+  static float initialEnergy = 0.3;
   static float generatePerFrame(float sunIntensity) {
     return photosynthesisFactor * sunIntensity;
   }
 }
 
 static class OffshootConfig {
-  static float probToAppear = 0.2;
+  static float probToAppear = 0.05;
   static float consumePerFrame = 0.004;
   static float energyToTransform = 0.8;
   static float organicAfterDeath = 1.5;

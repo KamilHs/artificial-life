@@ -1,6 +1,6 @@
 public class Leaf extends Cell {
   public Leaf(int sectorId, int x, int y, UUID organizmId, float angle, Wood parent) {
-    super(sectorId, x, y, organizmId, RootConfig.initialEnergy, angle, RootConfig.organicAfterDeath, parent);
+    super(sectorId, x, y, organizmId, LeafConfig.initialEnergy, angle, LeafConfig.organicAfterDeath, parent);
   }
 
   public void _draw(){

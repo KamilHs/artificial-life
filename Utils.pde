@@ -1,5 +1,5 @@
 static class Utils {
-  static public double normaliseCharge(double charge, double normalCharge) {
+  static public float normaliseCharge(float charge, float normalCharge) {
     return Math.abs(charge - normalCharge) < 0.1 ? charge : charge + (normalCharge - charge) * 0.02;
   }
 
