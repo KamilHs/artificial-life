@@ -147,7 +147,7 @@ public class Offshoot extends Cell {
     CellTypeEnum cellType = CellTypeEnum.valueOf(gen);
 
     if (cellType == null) return null;
-
+  
     switch(cellType) {
     case OFFSHOOT:
       return new Offshoot(sectorId, newX, newY, organizmId, new DNA(dna, gen), a, null);
@@ -176,7 +176,7 @@ enum CellTypeEnum {
   }
 
   public static CellTypeEnum valueOf(int value) {
-    if (value > 14) return null;
+    if (value > 5) return null;
 
     switch(value % 5) {
     case 0:

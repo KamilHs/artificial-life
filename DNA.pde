@@ -12,7 +12,7 @@ public class DNA {
       movement[i] = byte(random(DNAConfig.movementSize));
     }
     for (int i = 0; i < DNAConfig.reproductionSize; ++i) {
-      reproduction[i] = byte(random(DNAConfig.reproductionSize));
+      reproduction[i] = byte(random(10));
     }
   }
 
@@ -32,7 +32,7 @@ public class DNA {
     }
     for (int i = 0; i < DNAConfig.reproductionSize; ++i) {
       if (random(1)  < DNAConfig.mutationRate) {
-        reproduction[i] = byte(random(DNAConfig.movementSize));
+        reproduction[i] = byte(random(10));
         break;
       }
     }

@@ -2,7 +2,7 @@ int rows, cols;
 int offsetX = 0;
 int offsetY = 0;
 float zoom = 1.0;
-int nbClansPerRow = 2;
+int nbClansPerRow = 4;
 int nbClansPerColumn = 2;
 int clanRows;
 int clanCols;
@@ -80,7 +80,7 @@ void setup() {
   int n = 0;
   for (int i = 0; i < cols; ++i) {
     for (int j = 0; j < rows; ++j) {
-      if (j % 4 == 0 && i % 4 == 0 && grid.cells[i][j].canInitiallySpawned()) {
+      if (j % 6 == 0 && i % 6 == 0 && grid.cells[i][j].canInitiallySpawned()) {
         Cell cell = new Offshoot(floor(j / clanRows) + floor(i / clanCols) * nbClansPerRow, j, i);
         cells.add(cell);
         n++;
