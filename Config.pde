@@ -88,7 +88,19 @@ static class WoodConfig {
 static class SunConfig {
   static float min = 0;
   static float max = 20;
-  static float initial = 10;
+  static float current;
+
+  static public void calculateIntensity(int currentFrame, int halfPeriodTime) {
+    if (currentFrame < halfPeriodTime) {
+      SunConfig.current = SunConfig.max - map(currentFrame, 0, halfPeriodTime, SunConfig.min, SunConfig.max);
+    } else {
+      currentFrame = currentFrame % (2 * halfPeriodTime);
+      if (currentFrame > halfPeriodTime)
+        SunConfig.current = map(currentFrame, halfPeriodTime, 2*halfPeriodTime, SunConfig.min, SunConfig.max/2);
+      else
+      SunConfig.current = SunConfig.max/2 - map(currentFrame, 0, halfPeriodTime, SunConfig.min, SunConfig.max/2);
+    }
+  }
 }
 
 static class DNAConfig {
@@ -97,7 +109,7 @@ static class DNAConfig {
   static float mutationRate = 0.01;
 }
 
-static class ScreenshotsConfig  {
+static class ScreenshotsConfig {
   static int interval = 15;
   static boolean enabled = false;
 }
