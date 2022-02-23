@@ -53,7 +53,9 @@ public class Offshoot extends Cell {
         float gainedEnergy = min(grid.cells[newY][newX].organicLevel, OffshootConfig.maxEatableOrganic);
         energy += gainedEnergy;
         grid.cells[newY][newX].organicLevel -= gainedEnergy;
-      } else {
+      } else if(cellInNewPos instanceof Wood || cellInNewPos instanceof Root){
+        programCounter += EatOffsetEnum.NOT_EATABLE_CELL.getValue();
+      }else{
         programCounter += EatOffsetEnum.EATABLE_CELL.getValue();
         energy += cellInNewPos.energy;
         cellInNewPos.kill();
@@ -100,6 +102,9 @@ public class Offshoot extends Cell {
     if (!alive) return;
     if(parent == null) {
       energy -= OffshootConfig.consumePerFrame;
+    }
+    else {
+      parent.storage.addEnergy(-OffshootConfig.consumePerFrame);
     }
 
     if (energy < 0 || parent != null && !parent.isAlive()) {

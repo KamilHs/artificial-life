@@ -88,4 +88,5 @@ static class SunConfig {
 static class DNAConfig {
   static int movementSize = 64;
   static int reproductionSize = 60;
+  static float mutationRate = 0.01;
 }
