@@ -11,8 +11,8 @@ public class Leaf extends Cell {
   }
 
   public void _live(){
-    if(!alive || parent == null) return;
-    if(!parent.isAlive()){
+    if(!alive) return;
+    if(parent ==null || !parent.isAlive()){
       kill();
       return;
     }

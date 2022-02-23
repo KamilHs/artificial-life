@@ -31,7 +31,7 @@ static class AntennaConfig {
 }
 
 static class GridCellConfig {
-  static int size = 2;
+  static int size = 4;
   static float initialOrganic = 3.0;
   static int[] poisoningOrganicColor = new int[]{255, 0, 0};
   static float organicPoisoningLimit = 10.0;
@@ -52,7 +52,7 @@ static class LeafConfig {
 }
 
 static class OffshootConfig {
-  static float probToAppear = 0.05;
+  static float probToAppear = 0.2;
   static float consumePerFrame = 0.004;
   static float energyToTransform = 0.8;
   static float organicAfterDeath = 1.5;
@@ -74,7 +74,7 @@ static class RootConfig {
 
 static class WoodConfig {
   static float initialEnergy = 0.3;
-  static int lifetime = 600;
+  static int lifetime = 100;
   static float organicAfterDeath = 1.5;
   static float size;
 }

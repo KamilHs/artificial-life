@@ -1,6 +1,7 @@
 public class Wood extends Cell {
   public Cell[] cells = new Cell[4];
   public EnergyStorage storage;
+  public int age = 0;
 
   public Wood(int sectorId, int x, int y, UUID organizmId, float angle, Wood parent) {
     super(sectorId, x, y, organizmId, WoodConfig.initialEnergy, angle, WoodConfig.organicAfterDeath, parent);
@@ -51,5 +52,6 @@ public class Wood extends Cell {
   }
 
   public void _live() {
+    if(age++ > WoodConfig.lifetime) kill();
   }
 }

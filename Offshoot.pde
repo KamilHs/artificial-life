@@ -141,8 +141,6 @@ public class Offshoot extends Cell {
 
     if (cellType == null) return null;
 
-    cellType = random(1) < 0.3 ? CellTypeEnum.OFFSHOOT : cellType;
-
     switch(cellType) {
     case OFFSHOOT:
       return new Offshoot(sectorId, newX, newY, organizmId, new DNA(dna, gen), a, null);
