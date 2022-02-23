@@ -17,6 +17,6 @@ public class Leaf extends Cell {
       return;
     }
 
-    parent.energy += LeafConfig.generatePerFrame(1.0);
+    parent.storage.addEnergy(LeafConfig.generatePerFrame(1.0));
   }
 }

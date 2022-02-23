@@ -30,7 +30,7 @@ static class AntennaConfig {
 }
 
 static class GridCellConfig {
-  static int size = 10;
+  static int size = 4;
   static float initialOrganic = 3.0;
   static float organicPoisoningLimit = 10.0;
   static float initialCharge = 3.0;

@@ -65,7 +65,7 @@ public class Offshoot extends Cell {
 
   public void transform() {
     if(parent !=null) {
-      parent.energy -= OffshootConfig.energyToTransform;
+      parent.storage.addEnergy(-OffshootConfig.energyToTransform);
     }
     Wood wood = new Wood(sectorId, x, y, organizmId, angle, parent);
     byte genOffset = byte(dna.activeReproductionGen * 4);
@@ -101,16 +101,13 @@ public class Offshoot extends Cell {
     if(parent == null) {
       energy -= OffshootConfig.consumePerFrame;
     }
-    else if(parent.energy > 0.3) {
-      println("parent.energy: "+parent.energy);
-    }
 
     if (energy < 0) {
       kill();
       return;
     }
 
-    if (energy >= OffshootConfig.energyToTransform || parent != null && parent.energy >= OffshootConfig.energyToTransform)
+    if (energy >= OffshootConfig.energyToTransform || parent != null && parent.storage.energy >= OffshootConfig.energyToTransform)
       transform();
 
     if (parent != null) return;
