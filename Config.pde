@@ -34,6 +34,10 @@ static class AntennaConfig {
   static int size;
 }
 
+static class CellConfig {
+  static float maxChargeAfterDeath = 3.0;
+}
+
 static class GridCellConfig {
   static int size = 2;
   static float initialOrganic = 3.0;
