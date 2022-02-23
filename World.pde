@@ -2,7 +2,7 @@ int rows, cols;
 int offsetX = 0;
 int offsetY = 0;
 float zoom = 1.0;
-int nbClansPerRow = 4;
+int nbClansPerRow = 2;
 int nbClansPerColumn = 2;
 int clanRows;
 int clanCols;
@@ -53,6 +53,10 @@ int[] getOrganicLevelColor(float level){
   return mapValueToColor(level, GridCellConfig.initialOrganic, GridCellConfig.organicPoisoningLimit, GridCellConfig.poisoningOrganicColor);
 }
 
+int[] getChargeLevelColor(float level){
+  return mapValueToColor(level, GridCellConfig.initialCharge, GridCellConfig.poisoningChargeLimit, GridCellConfig.poisoningChargeColor);
+}
+
 void setup() {
   fullScreen();
   int h = displayHeight - 40;
@@ -76,7 +80,7 @@ void setup() {
   int n = 0;
   for (int i = 0; i < cols; ++i) {
     for (int j = 0; j < rows; ++j) {
-      if (j % 3 == 0 && i % 3 == 0 && grid.cells[i][j].canInitiallySpawned()) {
+      if (j % 4 == 0 && i % 4 == 0 && grid.cells[i][j].canInitiallySpawned()) {
         Cell cell = new Offshoot(floor(j / clanRows) + floor(i / clanCols) * nbClansPerRow, j, i);
         cells.add(cell);
         n++;
@@ -145,7 +149,9 @@ void keyPressed()
     ViewModeConfig.mode = ViewModeEnum.SECTORS;
   } else if (key == '3') {
     ViewModeConfig.mode = ViewModeEnum.ORGANIC;
-  } else if (key == 'h') {
+  } else if (key == '4') {
+    ViewModeConfig.mode = ViewModeEnum.CHARGE;
+  }else if (key == 'h') {
     show = !show;
   }
 }

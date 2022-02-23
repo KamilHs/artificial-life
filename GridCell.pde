@@ -12,11 +12,10 @@ public class GridCell {
     int xx = x % clanRows;
     int yy = y % clanCols;
 
-    if (xx < SectorsConfig.borderWidth || xx >= clanRows - SectorsConfig.borderWidth || yy < SectorsConfig.borderWidth || yy >= clanCols - SectorsConfig.borderWidth){
+    if (xx < SectorsConfig.borderWidth || xx >= clanRows - SectorsConfig.borderWidth || yy < SectorsConfig.borderWidth || yy >= clanCols - SectorsConfig.borderWidth) {
       type = GridCellType.BORDER;
       organicLevel = GridCellConfig.organicPoisoningLimit + 1;
-    }
-    else if (xx < SectorsConfig.noSpawnNoSun || xx >= clanRows - SectorsConfig.noSpawnNoSun || yy < SectorsConfig.noSpawnNoSun || yy >= clanCols - SectorsConfig.noSunZoneWidth)
+    } else if (xx < SectorsConfig.noSpawnNoSun || xx >= clanRows - SectorsConfig.noSpawnNoSun || yy < SectorsConfig.noSpawnNoSun || yy >= clanCols - SectorsConfig.noSunZoneWidth)
       type = GridCellType.NO_SUN_NO_SPAWN_ZONE;
     else if (xx < SectorsConfig.noSunZoneWidth || xx >= clanRows - SectorsConfig.noSunZoneWidth || yy < SectorsConfig.noSunZoneWidth || yy >= clanCols - SectorsConfig.noSunZoneWidth)
       type = GridCellType.NO_SUN_ZONE;
@@ -32,12 +31,15 @@ public class GridCell {
     if (ViewModeConfig.mode == ViewModeEnum.ORGANIC) {
       int[] c = getOrganicLevelColor(organicLevel);
       fill(c[0], c[1], c[2]);
+    } else if (ViewModeConfig.mode == ViewModeEnum.CHARGE) {
+      int[] c = getChargeLevelColor(chargeLevel);
+      fill(c[0], c[1], c[2]);
     } else {
       if (isOrganicallyPoisoned())
         fill(255, 0, 0);
-      else if (chargeLevel > GridCellConfig.poisoningChargeLimit)
+      else if (isTooCharged())
         fill(0, 0, 255);
-      else if(!hasSun())
+      else if (!hasSun())
         fill((x + y) % 2 == 0 ? 235 : 220);
       else
         fill((x + y) % 2 == 0 ? 255 : 240);
@@ -45,11 +47,15 @@ public class GridCell {
     rect(x * GridCellConfig.size + offsetX, y * GridCellConfig.size + offsetY, GridCellConfig.size, GridCellConfig.size);
   }
 
-  boolean isOrganicallyPoisoned(){
+  boolean isOrganicallyPoisoned() {
     return organicLevel > GridCellConfig.organicPoisoningLimit;
   }
 
-  boolean canInitiallySpawned(){
+  boolean isTooCharged() {
+    return chargeLevel > GridCellConfig.poisoningChargeLimit;
+  }
+
+  boolean canInitiallySpawned() {
     return type != GridCellType.BORDER && type != GridCellType.NO_SUN_NO_SPAWN_ZONE;
   }
 
@@ -61,7 +67,7 @@ public class GridCell {
 
 enum GridCellType {
   BORDER,
-  NO_SUN_NO_SPAWN_ZONE,
-  NO_SUN_ZONE,
-  SUN_ZONE;
+    NO_SUN_NO_SPAWN_ZONE,
+    NO_SUN_ZONE,
+    SUN_ZONE;
 }

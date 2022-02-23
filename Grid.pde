@@ -13,6 +13,7 @@ public class Grid {
     for (int i = 0; i < cols; ++i) {
       for (int j = 0; j < rows; ++j) {
         cells[i][j].draw();
+        cells[i][j].update();
       }
     }
   }

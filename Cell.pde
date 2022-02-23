@@ -89,6 +89,8 @@ abstract public class Cell {
         neighbors.forEach(neighbor -> {
             neighbor.organicLevel = organicPerCell;
         });
+
+            grid.cells[y][x].chargeLevel += energy;
         
         alive = false;
     }
