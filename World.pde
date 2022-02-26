@@ -9,7 +9,6 @@ int clanCols;
 float translateX = 0.0;
 float translateY = 0.0;
 Grid grid;
-boolean show = true;
 ArrayList<Cell> cells = new ArrayList<Cell>();
 ArrayList<Cell> addedCells = new ArrayList<Cell>();
 HashMap<UUID, Float> organizmEnergies = new HashMap<UUID, Float>();
@@ -105,7 +104,7 @@ void draw() {
   scale(zoom);
   grid.render();
   cells.forEach(cell -> {
-    if (show || ScreenshotsConfig.enabled && frameCount % ScreenshotsConfig.interval == 0) {
+    if (RenderConfig.show || ScreenshotsConfig.enabled && frameCount % ScreenshotsConfig.interval == 0) {
       push();
       cell.draw();
       pop();
@@ -155,6 +154,6 @@ void keyPressed()
   } else if (key == '4') {
     ViewModeConfig.mode = ViewModeEnum.CHARGE;
   } else if (key == 'h') {
-    show = !show;
+    RenderConfig.show = !RenderConfig.show;
   }
 }
