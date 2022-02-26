@@ -135,7 +135,7 @@ public class Offshoot extends Cell {
     angle = rotateTo(angle, direction);
   }
 
-  private int[] getFrontCell() {
+  protected int[] getFrontCell() {
     return getFrontCellByCoords(x, y, angle);
   }
 
