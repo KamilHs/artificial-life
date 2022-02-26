@@ -1,6 +1,6 @@
 public class Leaf extends Cell {
   public Leaf(int sectorId, int x, int y, UUID organizmId, float angle, Wood parent) {
-    super(sectorId, x, y, organizmId, LeafConfig.initialEnergy, angle, LeafConfig.organicAfterDeath, parent);
+    super(sectorId, x, y, organizmId, 0, angle, LeafConfig.organicAfterDeath, LeafConfig.chargeAfterDeath, parent);
   }
 
   public void _draw(){
@@ -11,7 +11,7 @@ public class Leaf extends Cell {
   }
 
   public void _live(){
-    if(parent == null || !parent.isAlive() || grid.cells[y][x].isOrganicallyPoisoned()){
+    if(parent == null || !parent.isAlive() || grid.cells[y][x].isOrganicallyPoisoned() || grid.cells[y][x].isTooCharged()){
       kill();
       return;
     }

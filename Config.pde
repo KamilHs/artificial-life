@@ -28,9 +28,8 @@ static class ViewModeConfig {
 
 static class AntennaConfig {
   static float generatePerFrame = 0.03;
-  static float energyToBeBorn = 0.8;
   static float organicAfterDeath = 0.7;
-  static float initialEnergy = 0.3;
+  static float chargeAfterDeath = 0.5;
   static int size = GridCellConfig.size / 2;
 }
 
@@ -42,16 +41,14 @@ static class GridCellConfig {
   static float organicPoisoningLimit = 10.0;
   static float initialCharge = 3.0;
   static float normalCharge = 3.0;
-  static float maxChargeAfterDeath = 3.0;
-  static float poisoningChargeLimit = 10.0;
+  static float poisoningChargeLimit = 4.5;
 }
 
 static class LeafConfig {
   static float photosynthesisFactor = 0.02;
-  static float energyToBeBorn = 0.8;
   static float organicAfterDeath = 0.7;
+  static float chargeAfterDeath = 0.5;
   static float size = GridCellConfig.size / 2;
-  static float initialEnergy = 0.3;
   static float generatePerFrame(float sunIntensity) {
     return photosynthesisFactor * sunIntensity;
   }
@@ -62,6 +59,7 @@ static class OffshootConfig {
   static float consumePerFrame = 0.004;
   static float energyToTransform = 0.7;
   static float organicAfterDeath = 0.7;
+  static float chargeAfterDeath = 0.5;
   static float maxEatableOrganic = 0.5;
   static float initialEnergy = 0.4;
   static float size = GridCellConfig.size / 2;
@@ -72,16 +70,16 @@ static class SeedConfig {
 }
 
 static class RootConfig {
-  static float initialEnergy = 0.3;
   static float generatePerFrame = 0.02;
   static float organicAfterDeath = 0.7;
+  static float chargeAfterDeath = 0.5;
   static int size = GridCellConfig.size / 2;
 }
 
 static class WoodConfig {
-  static float initialEnergy = 0.3;
   static int lifetime = 100;
   static float organicAfterDeath = 0.7;
+  static float chargeAfterDeath = 0.5;
   static float size = Math.max(GridCellConfig.size / 5, 0.5);
 }
 

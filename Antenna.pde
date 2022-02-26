@@ -1,6 +1,6 @@
 public class Antenna extends Cell {
   public Antenna(int sectorId, int x, int y, UUID organizmId, float angle, Wood parent) {
-    super(sectorId, x, y, organizmId, AntennaConfig.initialEnergy, angle, AntennaConfig.organicAfterDeath, parent);
+    super(sectorId, x, y, organizmId, 0, angle, AntennaConfig.organicAfterDeath, AntennaConfig.chargeAfterDeath, parent);
   }
 
   public void _draw(){

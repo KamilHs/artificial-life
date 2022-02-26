@@ -7,9 +7,10 @@ abstract public class Cell {
     public float energy;
     public float angle;
     public float organicAfterDeath;
+    public float chargeAfterDeath;
     public Wood parent = null;
     
-    public Cell(int sectorId, int x, int y, UUID organizmId, float energy, float angle, float organicAfterDeath, Wood parent) {
+    public Cell(int sectorId, int x, int y, UUID organizmId, float energy, float angle, float organicAfterDeath, float chargeAfterDeath, Wood parent) {
         this.sectorId = sectorId;
         this.x = x;
         this.y = y;
@@ -17,6 +18,7 @@ abstract public class Cell {
         this.energy = energy;
         this.angle = angle;
         this.organicAfterDeath = organicAfterDeath;
+        this.chargeAfterDeath = chargeAfterDeath;
         this.parent = parent;
     }
     
@@ -73,6 +75,7 @@ abstract public class Cell {
     public void kill() {
         grid.cells[y][x].cell = null;
         float totalEnergy = organicAfterDeath;
+        float totalCharge = chargeAfterDeath;
         
         ArrayList<GridCell> neighbors = new ArrayList<GridCell>();
         
@@ -86,17 +89,18 @@ abstract public class Cell {
                 neighbors.add(grid.cells[newY][newX]);
                 
                 totalEnergy += grid.cells[newY][newX].organicLevel;
+                totalCharge += grid.cells[newY][newX].chargeLevel;
             }
         }
         
         float organicPerCell = totalEnergy / 9.0;
+        float chargePerCell = totalCharge / 9.0;
         
         neighbors.forEach(neighbor -> {
             neighbor.organicLevel = organicPerCell;
+            neighbor.chargeLevel = chargePerCell;
         });
 
-        grid.cells[y][x].chargeLevel += min(energy, GridCellConfig.maxChargeAfterDeath);
-        
         alive = false;
     }
 

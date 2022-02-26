@@ -3,7 +3,7 @@ public class Wood extends Cell {
   public int age = 0;
 
   public Wood(int sectorId, int x, int y, UUID organizmId, float angle, Wood parent) {
-    super(sectorId, x, y, organizmId, 0, angle, WoodConfig.organicAfterDeath, parent);
+    super(sectorId, x, y, organizmId, 0, angle, WoodConfig.organicAfterDeath, WoodConfig.chargeAfterDeath, parent);
   }
 
   public void _draw() {
@@ -58,7 +58,7 @@ public class Wood extends Cell {
     if(parent != null && !parent.isAlive()){
       parent = null;
     }
-    if(age++ > WoodConfig.lifetime || grid.cells[y][x].isOrganicallyPoisoned() || doesntGenerate(4)) {
+    if(age++ > WoodConfig.lifetime || grid.cells[y][x].isOrganicallyPoisoned() || grid.cells[y][x].isTooCharged() || doesntGenerate(4)) {
       long nbOfChildren = Arrays.asList(cells).stream().filter(c -> c != null && c instanceof Wood).count();
       float energyPerCell = parent == null ? getEnergy() / nbOfChildren : 0;
 

@@ -1,6 +1,6 @@
 static class Utils {
   static public float normaliseCharge(float charge, float normalCharge) {
-    return Math.abs(charge - normalCharge) < 0.1 ? charge : charge + (normalCharge - charge) * 0.02;
+    return Math.abs(charge - normalCharge) < 0.1 ? charge : charge + (normalCharge - charge) * 0.001;
   }
 
   static public int[] wrapCoords(int x, int y, int rows, int cols) {

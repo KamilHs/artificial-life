@@ -1,6 +1,6 @@
 public class Root extends Cell {
   public Root(int sectorId, int x, int y, UUID organizmId, float angle, Wood parent) {
-    super(sectorId, x, y, organizmId, RootConfig.initialEnergy, angle, RootConfig.organicAfterDeath, parent);
+    super(sectorId, x, y, organizmId, 0, angle, RootConfig.organicAfterDeath, RootConfig.chargeAfterDeath, parent);
   }
 
   public void _draw(){
@@ -10,7 +10,7 @@ public class Root extends Cell {
   }
 
   public void _live(){
-    if(parent == null || !parent.isAlive()){
+    if(parent == null || !parent.isAlive() || grid.cells[y][x].isTooCharged()){
       kill();
       return;
     }

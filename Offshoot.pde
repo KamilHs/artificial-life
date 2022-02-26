@@ -7,7 +7,7 @@ public class Offshoot extends Cell {
   }
 
   public Offshoot(int sectorId, int x, int y, UUID organizmId, DNA dna, float angle, Wood parent) {
-    super(sectorId, x, y, organizmId, OffshootConfig.initialEnergy, angle, OffshootConfig.organicAfterDeath, parent);
+    super(sectorId, x, y, organizmId, OffshootConfig.initialEnergy, angle, OffshootConfig.organicAfterDeath, OffshootConfig.chargeAfterDeath, parent);
     this.dna = dna;
     if(organizmEnergies.get(organizmId) == null){
       organizmEnergies.put(organizmId, 0.0);
@@ -110,7 +110,7 @@ public class Offshoot extends Cell {
       energy -= OffshootConfig.consumePerFrame;
     }
 
-    if (energy < 0 || grid.cells[y][x].isOrganicallyPoisoned() || parent != null && !parent.isAlive()) {
+    if (energy < 0 || grid.cells[y][x].isOrganicallyPoisoned() || grid.cells[y][x].isTooCharged() || parent != null && !parent.isAlive()) {
       kill();
       return;
     }
