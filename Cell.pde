@@ -105,14 +105,7 @@ abstract public class Cell {
     }
 
     public float getEnergy(){
-        try{
-
-        return organizmEnergies.get(organizmId);
-        }catch(Exception e){
-            println(Thread.currentThread().getStackTrace());
-            System.exit(0);
-            return 0.0f;
-        }
+        return organizmEnergies.getOrDefault(organizmId, 0.0f);
     }
 
     public void addEnergy(float e){

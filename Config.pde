@@ -110,8 +110,8 @@ static class DNAConfig {
 }
 
 static class ScreenshotsConfig {
-  static int interval = 1;
-  static boolean enabled = true;
+  static int interval = 15;
+  static boolean enabled = false;
 }
 
 static class RenderConfig {
