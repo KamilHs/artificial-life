@@ -9,9 +9,36 @@ public class Seed extends Offshoot {
     rect(0, 0, OffshootConfig.size, OffshootConfig.size);
   }
 
+  private void move(){
+
+  }
+
+  private void transform(){
+    
+  }
+
+  private void handleParentDeath(){
+    parent = null;
+    byte command = dna.movement[0];
+    byte nextCommand = dna.movement[1];
+    MovementEnum commandEnum = MovementEnum.valueOf(command);
+
+    if(commandEnum == MovementEnum.MOVE){
+
+    }
+    else {
+      Offshoot offshoot = new Offshoot(sectorId, x, y, UUID.randomUUID(), new DNA(dna, byte(0)), angle, null);
+
+      grid.cells[y][x].cell = offshoot;
+      addedCells.add(offshoot);
+      alive = false;
+    }
+  }
+
   public void _live(){
-    if(parent != null && !parent.isAlive())
-      parent = null;
+    if(parent != null && !parent.isAlive()){
+      handleParentDeath();
+    }
     if(grid.cells[y][x].isOrganicallyPoisoned() || grid.cells[y][x].isTooCharged()){
       kill();
       return;

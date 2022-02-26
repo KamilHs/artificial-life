@@ -59,20 +59,25 @@ public class Wood extends Cell {
       parent = null;
     }
     if(age++ > WoodConfig.lifetime || grid.cells[y][x].isOrganicallyPoisoned() || grid.cells[y][x].isTooCharged() || doesntGenerate(4)) {
-      long nbOfChildren = Arrays.asList(cells).stream().filter(c -> c != null && c instanceof Wood).count();
-      float energyPerCell = parent == null ? getEnergy() / nbOfChildren : 0;
-
-      for (Cell cell : cells) {
-        if(cell != null && cell instanceof Wood){
-          cell.organizmId = UUID.randomUUID();
-          organizmEnergies.put(cell.organizmId, energyPerCell);
-        }
-      }
-      if(parent == null){
-        organizmEnergies.remove(organizmId);
-      }
-      
       kill();
     }
+  }
+
+  @Override 
+  public void kill() {
+    long nbOfChildren = Arrays.asList(cells).stream().filter(c -> c != null && c instanceof Wood).count();
+    float energyPerCell = parent == null ? getEnergy() / nbOfChildren : 0;
+
+    for (Cell cell : cells) {
+      if(cell != null && cell instanceof Wood){
+        cell.organizmId = UUID.randomUUID();
+        organizmEnergies.put(cell.organizmId, energyPerCell);
+      }
+    }
+    if(parent == null){
+      organizmEnergies.remove(organizmId);
+    }
+    
+    super.kill();
   }
 }
