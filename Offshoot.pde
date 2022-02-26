@@ -7,7 +7,11 @@ public class Offshoot extends Cell {
   }
 
   public Offshoot(int sectorId, int x, int y, UUID organizmId, DNA dna, float angle, Wood parent) {
-    super(sectorId, x, y, organizmId, OffshootConfig.initialEnergy, angle, OffshootConfig.organicAfterDeath, OffshootConfig.chargeAfterDeath, parent);
+    this(sectorId, x, y, organizmId, OffshootConfig.initialEnergy, angle, OffshootConfig.organicAfterDeath, OffshootConfig.chargeAfterDeath, dna, parent);
+  }
+  
+  public Offshoot(int sectorId, int x, int y, UUID organizmId, float initialEnergy,  float angle, float organicAfterDeath, float chargeAfterDeath, DNA dna, Wood parent) {
+    super(sectorId, x, y, organizmId, initialEnergy, angle, organicAfterDeath, chargeAfterDeath, parent);
     this.dna = dna;
     if(organizmEnergies.get(organizmId) == null){
       organizmEnergies.put(organizmId, 0.0);
@@ -157,7 +161,7 @@ public class Offshoot extends Cell {
     case ANTENNA:
       return new Antenna(sectorId, newX, newY, organizmId, a, null);
     case SEED:
-      return null;
+      return new Seed(sectorId, newX, newY, organizmId, new DNA(dna, gen), a, null);
     default:
       return null;
     }

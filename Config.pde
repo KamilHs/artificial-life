@@ -66,7 +66,9 @@ static class OffshootConfig {
 }
 
 static class SeedConfig {
-  static float consumePerFrame = 0.02;
+  static float organicAfterDeath = 0.7;
+  static float chargeAfterDeath = 0.5;
+  static float size = GridCellConfig.size / 2;
 }
 
 static class RootConfig {
