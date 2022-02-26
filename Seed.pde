@@ -19,6 +19,12 @@ public class Seed extends Offshoot {
 
   private void handleParentDeath(){
     parent = null;
+    if(getEnergy() < OffshootConfig.energyToTransform){
+      kill();
+      return;
+    }
+
+    organizmEnergies.remove(organizmId);
     byte command = dna.movement[0];
     byte nextCommand = dna.movement[1];
     MovementEnum commandEnum = MovementEnum.valueOf(command);
@@ -27,12 +33,13 @@ public class Seed extends Offshoot {
 
     }
     else {
-      Offshoot offshoot = new Offshoot(sectorId, x, y, UUID.randomUUID(), new DNA(dna, byte(random(5))), angle, null);
+      Offshoot offshoot = new Offshoot(sectorId, x, y, UUID.randomUUID(), new DNA(dna, dna.activeReproductionGen), angle, null);
 
       grid.cells[y][x].cell = offshoot;
       addedCells.add(offshoot);
       alive = false;
     }
+
   }
 
   public void _live(){

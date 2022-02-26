@@ -65,11 +65,11 @@ public class Wood extends Cell {
 
   @Override 
   public void kill() {
-    long nbOfChildren = Arrays.asList(cells).stream().filter(c -> c != null && c instanceof Wood).count();
+    long nbOfChildren = Arrays.asList(cells).stream().filter(c -> c != null && (c instanceof Wood || c instanceof Seed)).count();
     float energyPerCell = parent == null ? getEnergy() / nbOfChildren : 0;
 
     for (Cell cell : cells) {
-      if(cell != null && cell instanceof Wood){
+      if(cell != null && (cell instanceof Wood || cell instanceof Seed)){
         cell.organizmId = UUID.randomUUID();
         organizmEnergies.put(cell.organizmId, energyPerCell);
       }
