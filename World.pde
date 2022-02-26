@@ -106,7 +106,8 @@ void draw() {
       cell.draw();
       pop();
     }
-    cell.live();
+    if(!RenderConfig.paused)
+      cell.live();
   });
   popMatrix();
 
@@ -152,5 +153,8 @@ void keyPressed()
     ViewModeConfig.mode = ViewModeEnum.CHARGE;
   } else if (key == 'h') {
     RenderConfig.show = !RenderConfig.show;
+  }
+  else if(key == 'p') {
+    RenderConfig.paused = !RenderConfig.paused; 
   }
 }
