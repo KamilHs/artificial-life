@@ -70,11 +70,8 @@ void setup() {
   clanCols = cols / nbClansPerColumn;
   offsetX = (displayWidth - rows * GridCellConfig.size) / 2;
   offsetY = (h - cols * GridCellConfig.size) / 2;
-  OffshootConfig.size = GridCellConfig.size / 2;
-  LeafConfig.size = GridCellConfig.size / 2;
-  RootConfig.size = GridCellConfig.size / 2;
-  AntennaConfig.size = GridCellConfig.size / 2;
-  WoodConfig.size = max(GridCellConfig.size / 5, 0.5);
+  SectorsConfig.noSpawnNoSun = floor(min(rows, cols) * 0.02);
+  SectorsConfig.noSunZoneWidth = SectorsConfig.noSpawnNoSun * 3;
   grid = new Grid();
 
   int n = 0;
