@@ -27,15 +27,15 @@ static class ViewModeConfig {
 }
 
 static class AntennaConfig {
-  static float generatePerFrame = 0.3;
+  static float generatePerFrame = 0.03;
   static float energyToBeBorn = 0.8;
-  static float organicAfterDeath = 1.5;
+  static float organicAfterDeath = 0.7;
   static float initialEnergy = 0.3;
   static int size;
 }
 
 static class GridCellConfig {
-  static int size = 2;
+  static int size = 4;
   static float initialOrganic = 3.0;
   static int[] poisoningOrganicColor = new int[]{255, 0, 0};
   static int[] poisoningChargeColor = new int[]{0, 0, 255};
@@ -47,9 +47,9 @@ static class GridCellConfig {
 }
 
 static class LeafConfig {
-  static float photosynthesisFactor = 0.06;
+  static float photosynthesisFactor = 0.02;
   static float energyToBeBorn = 0.8;
-  static float organicAfterDeath = 1.5;
+  static float organicAfterDeath = 0.7;
   static float size;
   static float initialEnergy = 0.3;
   static float generatePerFrame(float sunIntensity) {
@@ -61,7 +61,7 @@ static class OffshootConfig {
   static float probToAppear = 0.15;
   static float consumePerFrame = 0.004;
   static float energyToTransform = 0.7;
-  static float organicAfterDeath = 1.5;
+  static float organicAfterDeath = 0.7;
   static float maxEatableOrganic = 0.5;
   static float initialEnergy = 0.4;
   static float size;
@@ -73,15 +73,15 @@ static class SeedConfig {
 
 static class RootConfig {
   static float initialEnergy = 0.3;
-  static float generatePerFrame = 0.04;
-  static float organicAfterDeath = 1.5;
+  static float generatePerFrame = 0.02;
+  static float organicAfterDeath = 0.7;
   static int size;
 }
 
 static class WoodConfig {
   static float initialEnergy = 0.3;
-  static int lifetime = 200;
-  static float organicAfterDeath = 1.5;
+  static int lifetime = 100;
+  static float organicAfterDeath = 0.7;
   static float size;
 }
 

@@ -9,6 +9,9 @@ public class Offshoot extends Cell {
   public Offshoot(int sectorId, int x, int y, UUID organizmId, DNA dna, float angle, Wood parent) {
     super(sectorId, x, y, organizmId, OffshootConfig.initialEnergy, angle, OffshootConfig.organicAfterDeath, parent);
     this.dna = dna;
+    if(organizmEnergies.get(organizmId) == null){
+      organizmEnergies.put(organizmId, 0.0);
+    }
   }
 
   public void update() {
@@ -64,7 +67,7 @@ public class Offshoot extends Cell {
         if (parent == null)
           energy += OffshootConfig.maxEatableOrganic;
         else
-          parent.energy += OffshootConfig.maxEatableOrganic;
+          addEnergy(OffshootConfig.maxEatableOrganic);
         cellInNewPos.kill();
       }
     } else {
@@ -74,7 +77,7 @@ public class Offshoot extends Cell {
 
   public void transform() {
     if (parent != null) {
-      parent.energy -= OffshootConfig.energyToTransform;
+      useEnergy(OffshootConfig.energyToTransform);
     }
     Wood wood = new Wood(sectorId, x, y, organizmId, angle, parent);
     byte genOffset = byte(dna.activeReproductionGen * 4);
@@ -84,17 +87,7 @@ public class Offshoot extends Cell {
     wood.cells[2] = generateChild(dna.reproduction[genOffset + 2], DirectionEnum.LEFT);
     wood.cells[3] = generateChild(dna.reproduction[genOffset + 3], DirectionEnum.FORWARD);
 
-    boolean hasChild = false;
-    for (Cell cell : wood.cells) {
-      if (cell != null) {
-        cell.parent = wood;
-        addedCells.add(cell);
-        grid.cells[cell.y][cell.x].cell = cell;
-        hasChild = true;
-      }
-    }
-
-    if (hasChild) {
+    if(Arrays.asList(wood.cells).stream().filter(cell -> cell != null).count() > 0) {
       if (parent != null) {
         parent.replaceChild(this, wood);
       }
@@ -102,11 +95,17 @@ public class Offshoot extends Cell {
       addedCells.add(wood);
     }
 
+    for (Cell cell : wood.cells) {
+      if (cell != null) {
+        cell.parent = wood;
+        addedCells.add(cell);
+        grid.cells[cell.y][cell.x].cell = cell;
+      }
+    }
     alive = false;
   }
 
   public void _live() {
-    if (!alive) return;
     if (parent == null) {
       energy -= OffshootConfig.consumePerFrame;
     }
@@ -116,7 +115,7 @@ public class Offshoot extends Cell {
       return;
     }
 
-    if (energy >= OffshootConfig.energyToTransform || parent != null && parent.energy >= OffshootConfig.energyToTransform)
+    if (energy >= OffshootConfig.energyToTransform || parent != null && getEnergy() >= OffshootConfig.energyToTransform)
       transform();
 
     update();

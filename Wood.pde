@@ -13,7 +13,6 @@ public class Wood extends Cell {
     point(0, 0);
     strokeCap(SQUARE);
 
-
     for (int i = 0; i < 4; ++i) {
       Cell cell = cells[i];
       if (cell != null) {
@@ -53,7 +52,21 @@ public class Wood extends Cell {
     if(parent != null && !parent.isAlive()){
       parent = null;
     }
-    if(age++ > WoodConfig.lifetime || grid.cells[y][x].isOrganicallyPoisoned()) 
+    if(age++ > WoodConfig.lifetime || grid.cells[y][x].isOrganicallyPoisoned()) {
+      long nbOfChildren = Arrays.asList(cells).stream().filter(c -> c != null && c instanceof Wood).count();
+      float energyPerCell = parent == null ? getEnergy() / nbOfChildren : 0;
+
+      for (Cell cell : cells) {
+        if(cell != null && cell instanceof Wood){
+          cell.organizmId = UUID.randomUUID();
+          organizmEnergies.put(cell.organizmId, energyPerCell);
+        }
+      }
+      if(parent == null){
+        organizmEnergies.remove(organizmId);
+      }
+      
       kill();
+    }
   }
 }

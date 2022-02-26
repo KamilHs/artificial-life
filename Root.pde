@@ -10,7 +10,6 @@ public class Root extends Cell {
   }
 
   public void _live(){
-    if(!alive) return;
     if(parent == null || !parent.isAlive()){
       kill();
       return;
@@ -18,6 +17,6 @@ public class Root extends Cell {
 
     float gainedEnergy = min(grid.cells[y][x].organicLevel, RootConfig.generatePerFrame);
     grid.cells[y][x].organicLevel -= gainedEnergy;
-    parent.energy += gainedEnergy;
+    addEnergy(gainedEnergy);
   }
 }

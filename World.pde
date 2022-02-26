@@ -9,9 +9,10 @@ int clanCols;
 float translateX = 0.0;
 float translateY = 0.0;
 Grid grid;
-boolean show = false;
+boolean show = true;
 ArrayList<Cell> cells = new ArrayList<Cell>();
 ArrayList<Cell> addedCells = new ArrayList<Cell>();
+HashMap<UUID, Float> organizmEnergies = new HashMap<UUID, Float>();
 
 int[] getFrontCellByCoords(int x, int y, float a) {
   int newX = x + int(cos(a));
@@ -40,20 +41,20 @@ float rotateTo(float a, DirectionEnum direction) {
   return a % TWO_PI;
 }
 
-int[] mapValueToColor(float curr, float min, float max, int[] overflowColor){
-  if(curr < min) return new int[]{255,255,255};
-  if(curr > max) return overflowColor;
+int[] mapValueToColor(float curr, float min, float max, int[] overflowColor) {
+  if (curr < min) return new int[]{255, 255, 255};
+  if (curr > max) return overflowColor;
 
   int mappedColor = int(map(curr, min, max, 255, 0));
 
   return new int[]{mappedColor, mappedColor, mappedColor};
 }
 
-int[] getOrganicLevelColor(float level){
+int[] getOrganicLevelColor(float level) {
   return mapValueToColor(level, GridCellConfig.initialOrganic, GridCellConfig.organicPoisoningLimit, GridCellConfig.poisoningOrganicColor);
 }
 
-int[] getChargeLevelColor(float level){
+int[] getChargeLevelColor(float level) {
   return mapValueToColor(level, GridCellConfig.initialCharge, GridCellConfig.poisoningChargeLimit, GridCellConfig.poisoningChargeColor);
 }
 
@@ -104,18 +105,18 @@ void draw() {
   scale(zoom);
   grid.render();
   cells.forEach(cell -> {
-  if(show || ScreenshotsConfig.enabled && frameCount % ScreenshotsConfig.interval == 0){
-    push();
-    cell.draw();
-    pop();
-  }
+    if (show || ScreenshotsConfig.enabled && frameCount % ScreenshotsConfig.interval == 0) {
+      push();
+      cell.draw();
+      pop();
+    }
     cell.live();
   });
   popMatrix();
 
-  if(ScreenshotsConfig.enabled && frameCount % ScreenshotsConfig.interval == 0)
+  if (ScreenshotsConfig.enabled && frameCount % ScreenshotsConfig.interval == 0)
     saveFrame("./screenshots/frame-" + frameCount + ".png");
-  
+
   textSize(64);
   fill(0);
   text(int(frameRate), displayWidth - 100, 64);
@@ -153,7 +154,7 @@ void keyPressed()
     ViewModeConfig.mode = ViewModeEnum.ORGANIC;
   } else if (key == '4') {
     ViewModeConfig.mode = ViewModeEnum.CHARGE;
-  }else if (key == 'h') {
+  } else if (key == 'h') {
     show = !show;
   }
 }

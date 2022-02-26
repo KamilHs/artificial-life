@@ -57,7 +57,12 @@ abstract public class Cell {
             _draw();
         }
     }
+    
     public void live() {
+        if(!alive) return;
+        if(parent != null && parent.isAlive())
+            organizmId = parent.organizmId;
+
         _live();
     }
     
@@ -93,5 +98,17 @@ abstract public class Cell {
         grid.cells[y][x].chargeLevel += min(energy, GridCellConfig.maxChargeAfterDeath);
         
         alive = false;
+    }
+
+    public float getEnergy(){
+        return organizmEnergies.get(organizmId);
+    }
+
+    public void addEnergy(float e){
+        organizmEnergies.put(organizmId, getEnergy() + e);
+    }
+
+    public void useEnergy(float e){
+        addEnergy(-e);
     }
 }

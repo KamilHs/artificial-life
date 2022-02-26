@@ -10,7 +10,6 @@ public class Antenna extends Cell {
   }
 
   public void _live(){
-    if(!alive) return;
     if(parent == null || !parent.isAlive() || grid.cells[y][x].isOrganicallyPoisoned()){
       kill();
       return;
@@ -18,6 +17,6 @@ public class Antenna extends Cell {
 
     float gainedEnergy = min(grid.cells[y][x].chargeLevel, AntennaConfig.generatePerFrame);
     grid.cells[y][x].chargeLevel -= gainedEnergy;
-    parent.energy += gainedEnergy;
+    addEnergy(gainedEnergy);
   }
 }
