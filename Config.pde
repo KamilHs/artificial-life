@@ -96,22 +96,22 @@ static class SunConfig {
     } else {
       currentFrame = currentFrame % (2 * halfPeriodTime);
       if (currentFrame > halfPeriodTime)
-        SunConfig.current = map(currentFrame, halfPeriodTime, 2*halfPeriodTime, SunConfig.min, SunConfig.max/2);
+        SunConfig.current = map(currentFrame, halfPeriodTime, 2 * halfPeriodTime, SunConfig.min, SunConfig.max / 2);
       else
-      SunConfig.current = SunConfig.max/2 - map(currentFrame, 0, halfPeriodTime, SunConfig.min, SunConfig.max/2);
+      SunConfig.current = SunConfig.max / 2 - map(currentFrame, 0, halfPeriodTime, SunConfig.min, SunConfig.max / 2);
     }
   }
 }
 
 static class DNAConfig {
   static int movementSize = 64;
-  static int reproductionSize = 25;
+  static int reproductionSize = 20;
   static float mutationRate = 0.01;
 }
 
 static class ScreenshotsConfig {
-  static int interval = 15;
-  static boolean enabled = false;
+  static int interval = 1;
+  static boolean enabled = true;
 }
 
 static class RenderConfig {

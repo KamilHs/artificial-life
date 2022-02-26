@@ -12,7 +12,7 @@ public class Seed extends Offshoot {
   }
 
   private void move() {
-    distance = dna.movement[1];
+    distance = dna.seedThrowDistance;
     isMoving = true;
   }
 
@@ -32,10 +32,7 @@ public class Seed extends Offshoot {
     }
 
     organizmEnergies.remove(organizmId);
-    byte command = dna.movement[0];
-    MovementEnum commandEnum = MovementEnum.valueOf(command);
-
-    if (commandEnum == MovementEnum.MOVE)
+    if (random(1) < dna.seedThrowProbability)
       move();
     else
       transform();

@@ -9,11 +9,11 @@ public class Offshoot extends Cell {
   public Offshoot(int sectorId, int x, int y, UUID organizmId, DNA dna, float angle, Wood parent) {
     this(sectorId, x, y, organizmId, OffshootConfig.initialEnergy, angle, OffshootConfig.organicAfterDeath, OffshootConfig.chargeAfterDeath, dna, parent);
   }
-  
+
   public Offshoot(int sectorId, int x, int y, UUID organizmId, float initialEnergy, float angle, float organicAfterDeath, float chargeAfterDeath, DNA dna, Wood parent) {
     super(sectorId, x, y, organizmId, initialEnergy, angle, organicAfterDeath, chargeAfterDeath, parent);
     this.dna = dna;
-    if(organizmEnergies.get(organizmId) == null){
+    if (organizmEnergies.get(organizmId) == null) {
       organizmEnergies.put(organizmId, 0.0);
     }
   }
@@ -57,13 +57,12 @@ public class Offshoot extends Cell {
 
       if (cellInNewPos == null) {
         programCounter += EatOffsetEnum.EMPTY.getValue();
-        
-        if(parent == null){
+
+        if (parent == null) {
           float gainedEnergy = min(grid.cells[newY][newX].organicLevel, OffshootConfig.maxEatableOrganic);
           energy += gainedEnergy;
           grid.cells[newY][newX].organicLevel -= gainedEnergy;
         }
-
       } else if (cellInNewPos instanceof Wood || cellInNewPos instanceof Root) {
         programCounter += EatOffsetEnum.NOT_EATABLE_CELL.getValue();
       } else {
@@ -91,7 +90,7 @@ public class Offshoot extends Cell {
     wood.cells[2] = generateChild(dna.reproduction[genOffset + 2], DirectionEnum.LEFT);
     wood.cells[3] = generateChild(dna.reproduction[genOffset + 3], DirectionEnum.FORWARD);
 
-    if(Arrays.asList(wood.cells).stream().filter(cell -> cell != null).count() > 0) {
+    if (Arrays.asList(wood.cells).stream().filter(cell -> cell != null).count() > 0) {
       if (parent != null) {
         parent.replaceChild(this, wood);
       }
@@ -150,18 +149,18 @@ public class Offshoot extends Cell {
     CellTypeEnum cellType = CellTypeEnum.valueOf(gen);
 
     if (cellType == null) return null;
-  
+
     switch(cellType) {
     case OFFSHOOT:
-      return new Offshoot(sectorId, newX, newY, organizmId, new DNA(dna, gen), a, null);
+      return random(1) < dna.seedProbability ?
+        new Seed(sectorId, newX, newY, organizmId, new DNA(dna, gen), a, null) :
+        new Offshoot(sectorId, newX, newY, organizmId, new DNA(dna, gen), a, null);
     case LEAF:
       return new Leaf(sectorId, newX, newY, organizmId, a, null);
     case ROOT:
       return new Root(sectorId, newX, newY, organizmId, a, null);
     case ANTENNA:
       return new Antenna(sectorId, newX, newY, organizmId, a, null);
-    case SEED:
-      return new Seed(sectorId, newX, newY, organizmId, new DNA(dna, gen), a, null);
     default:
       return null;
     }
@@ -170,7 +169,7 @@ public class Offshoot extends Cell {
 
 
 enum CellTypeEnum {
-  OFFSHOOT(0), LEAF(1), ROOT(2), ANTENNA(3), SEED(4);
+  OFFSHOOT(0), LEAF(1), ROOT(2), ANTENNA(3);
 
   private final int value;
 
@@ -179,9 +178,9 @@ enum CellTypeEnum {
   }
 
   public static CellTypeEnum valueOf(int value) {
-    if (value > 5) return null;
+    if (value > 4) return null;
 
-    switch(value % 5) {
+    switch(value % 4) {
     case 0:
       return OFFSHOOT;
     case 1:
@@ -190,8 +189,6 @@ enum CellTypeEnum {
       return ROOT;
     case 3:
       return ANTENNA;
-    case 4:
-      return SEED;
     default :
       return null;
     }

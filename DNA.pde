@@ -2,12 +2,17 @@ public class DNA {
   public byte[] movement;
   public byte[] reproduction;
   public byte activeReproductionGen;
+  public float seedProbability;
+  public float seedThrowProbability;
+  public byte seedThrowDistance;
 
   public DNA() {
     movement = new byte[DNAConfig.movementSize];
     reproduction = new byte[DNAConfig.reproductionSize];
+    seedProbability = random(1);
+    seedThrowProbability = random(1);
+    seedThrowDistance = byte(random(DNAConfig.movementSize));
     activeReproductionGen = 0;
-
     for (int i = 0; i < DNAConfig.movementSize; ++i) {
       movement[i] = byte(random(DNAConfig.movementSize));
     }
@@ -20,6 +25,10 @@ public class DNA {
     movement = dna.movement.clone();
     reproduction = dna.reproduction.clone();
     this.activeReproductionGen = activeReproductionGen;
+    this.seedProbability = dna.seedProbability;
+    this.seedThrowProbability = dna.seedThrowProbability;
+    this.seedThrowDistance = dna.seedThrowDistance;
+
     mutate();
   }
 
@@ -36,5 +45,12 @@ public class DNA {
         break;
       }
     }
+
+    if(random(1) < DNAConfig.mutationRate)
+      seedProbability = random(1);
+    else if(random(1) < DNAConfig.mutationRate)
+      seedThrowProbability = random(1);
+    else if(random(1) < DNAConfig.mutationRate)
+      seedThrowDistance = byte(random(DNAConfig.movementSize));
   }
 }
