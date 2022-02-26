@@ -48,11 +48,15 @@ public class Wood extends Cell {
     }
   }
 
+  public boolean doesnGenerate(){
+    return Arrays.asList(cells).stream().filter(c -> c != null && !(c instanceof Offshoot) && !(c instanceof Wood)).count() == 0;
+  }
+
   public void _live() {
     if(parent != null && !parent.isAlive()){
       parent = null;
     }
-    if(age++ > WoodConfig.lifetime || grid.cells[y][x].isOrganicallyPoisoned()) {
+    if(age++ > WoodConfig.lifetime || grid.cells[y][x].isOrganicallyPoisoned() || parent != null && doesnGenerate() && parent.doesnGenerate()) {
       long nbOfChildren = Arrays.asList(cells).stream().filter(c -> c != null && c instanceof Wood).count();
       float energyPerCell = parent == null ? getEnergy() / nbOfChildren : 0;
 
