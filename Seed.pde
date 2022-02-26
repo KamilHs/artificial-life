@@ -27,7 +27,7 @@ public class Seed extends Offshoot {
 
     }
     else {
-      Offshoot offshoot = new Offshoot(sectorId, x, y, UUID.randomUUID(), new DNA(dna, byte(0)), angle, null);
+      Offshoot offshoot = new Offshoot(sectorId, x, y, UUID.randomUUID(), new DNA(dna, byte(random(5))), angle, null);
 
       grid.cells[y][x].cell = offshoot;
       addedCells.add(offshoot);
