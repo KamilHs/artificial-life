@@ -116,6 +116,14 @@ static class ScreenshotsConfig {
 }
 
 static class RenderConfig {
-  static boolean show = false;
+  static boolean show = true;
   static boolean paused = false;
+  static int frameRate = 2000;
+}
+
+static class SidebarConfig {
+  static int width = 400;
+  static int textOffsetLeft = 12;
+  static int movementCellSize = 36;
+  static int reproductionCellSize = 30;
 }

@@ -19,7 +19,6 @@ public class Offshoot extends Cell {
   }
 
   public void update() {
-    programCounter = programCounter % DNAConfig.movementSize;
     byte command = dna.movement[programCounter];
     byte nextCommandCounter = byte((programCounter + 1) % DNAConfig.movementSize);
     byte nextCommand = dna.movement[nextCommandCounter];
@@ -76,6 +75,8 @@ public class Offshoot extends Cell {
     } else {
       programCounter += command;
     }
+
+    programCounter = programCounter % DNAConfig.movementSize;
   }
 
   private void transform() {
