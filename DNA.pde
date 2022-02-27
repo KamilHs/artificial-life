@@ -9,7 +9,7 @@ public class DNA {
   public DNA() {
     movement = new byte[DNAConfig.movementSize];
     reproduction = new byte[DNAConfig.reproductionSize];
-    seedProbability = random(1);
+    seedProbability = random(1) / 10;
     seedThrowProbability = random(1);
     seedThrowDistance = byte(random(DNAConfig.movementSize));
     activeReproductionGen = 0;
@@ -47,10 +47,10 @@ public class DNA {
     }
 
     if(random(1) < DNAConfig.mutationRate)
-      seedProbability = random(1);
-    else if(random(1) < DNAConfig.mutationRate)
+      seedProbability = random(1) / 10;
+    if(random(1) < DNAConfig.mutationRate)
       seedThrowProbability = random(1);
-    else if(random(1) < DNAConfig.mutationRate)
+    if(random(1) < DNAConfig.mutationRate)
       seedThrowDistance = byte(random(DNAConfig.movementSize));
   }
 }

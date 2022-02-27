@@ -1,8 +1,9 @@
 public class GridCell {
   public int x, y;
   public Cell cell = null;
-  public float organicLevel = GridCellConfig.initialOrganic;
-  public float chargeLevel = GridCellConfig.initialCharge;
+  public float localNormalCharge = 0;
+  public float organicLevel = 0;
+  public float chargeLevel = 0;
   public GridCellType type;
 
   public GridCell(int x, int y) {
@@ -19,12 +20,16 @@ public class GridCell {
       type = GridCellType.NO_SUN_NO_SPAWN_ZONE;
     else if (xx < SectorsConfig.noSunZoneWidth || xx >= clanRows - SectorsConfig.noSunZoneWidth || yy < SectorsConfig.noSunZoneWidth || yy >= clanCols - SectorsConfig.noSunZoneWidth)
       type = GridCellType.NO_SUN_ZONE;
-    else
+    else {
       type = GridCellType.SUN_ZONE;
+      organicLevel = GridCellConfig.initialOrganic;
+      chargeLevel = GridCellConfig.initialCharge;
+      localNormalCharge = GridCellConfig.normalCharge;
+    }
   }
 
   void update() {
-    chargeLevel = Utils.normaliseCharge(chargeLevel, GridCellConfig.normalCharge);
+    chargeLevel = Utils.normaliseCharge(chargeLevel, localNormalCharge);
   }
 
   void draw() {

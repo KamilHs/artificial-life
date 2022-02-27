@@ -17,7 +17,7 @@ static class SectorsConfig {
     {10, 100, 40},
   };
 
-  static int borderWidth = 3;
+  static int borderWidth = 4;
   static int noSpawnNoSun;
   static int noSunZoneWidth;
 }
@@ -79,7 +79,7 @@ static class RootConfig {
 }
 
 static class WoodConfig {
-  static int lifetime = 100;
+  static int lifetime = 200;
   static float organicAfterDeath = 0.4;
   static float chargeAfterDeath = 0.5;
   static float size = Math.max(GridCellConfig.size / 5, 0.5);
@@ -111,7 +111,7 @@ static class DNAConfig {
 
 static class ScreenshotsConfig {
   static int interval = 200;
-  static boolean enabled = true;
+  static boolean enabled = false;
 }
 
 static class RenderConfig {

@@ -70,14 +70,14 @@ void setup() {
   clanCols = cols / nbClansPerColumn;
   offsetX = (displayWidth - rows * GridCellConfig.size) / 2;
   offsetY = (h - cols * GridCellConfig.size) / 2;
-  SectorsConfig.noSpawnNoSun = floor(min(rows, cols) * 0.02);
+  SectorsConfig.noSpawnNoSun = floor(min(rows, cols) * 0.03);
   SectorsConfig.noSunZoneWidth = SectorsConfig.noSpawnNoSun * 3;
   grid = new Grid();
 
   int n = 0;
   for (int i = 0; i < cols; ++i) {
     for (int j = 0; j < rows; ++j) {
-      if (j % 4 == 0 && i % 4 == 0 && grid.cells[i][j].canInitiallySpawned()) {
+      if (j % 2 == 0 && i % 2 == 0 && grid.cells[i][j].canInitiallySpawned()) {
         Cell cell = new Offshoot(floor(j / clanRows) + floor(i / clanCols) * nbClansPerRow, j, i);
         cells.add(cell);
         n++;
