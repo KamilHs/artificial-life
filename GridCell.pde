@@ -16,7 +16,7 @@ public class GridCell {
     if (xx < SectorsConfig.borderWidth || xx >= clanRows - SectorsConfig.borderWidth || yy < SectorsConfig.borderWidth || yy >= clanCols - SectorsConfig.borderWidth) {
       type = GridCellType.BORDER;
       organicLevel = GridCellConfig.organicPoisoningLimit + 1;
-    } else if (xx < SectorsConfig.noSpawnNoSun || xx >= clanRows - SectorsConfig.noSpawnNoSun || yy < SectorsConfig.noSpawnNoSun || yy >= clanCols - SectorsConfig.noSunZoneWidth)
+    } else if (xx < SectorsConfig.noSpawnNoSun || xx >= clanRows - SectorsConfig.noSpawnNoSun || yy < SectorsConfig.noSpawnNoSun || yy >= clanCols - SectorsConfig.noSpawnNoSun)
       type = GridCellType.NO_SUN_NO_SPAWN_ZONE;
     else if (xx < SectorsConfig.noSunZoneWidth || xx >= clanRows - SectorsConfig.noSunZoneWidth || yy < SectorsConfig.noSunZoneWidth || yy >= clanCols - SectorsConfig.noSunZoneWidth)
       type = GridCellType.NO_SUN_ZONE;

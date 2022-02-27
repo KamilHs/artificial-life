@@ -26,8 +26,13 @@ abstract public class Cell {
     abstract public void _live();
     public void draw() {
         if (!alive) return;
-        
+
         translate(x * GridCellConfig.size + offsetX + GridCellConfig.size / 2, y * GridCellConfig.size + offsetY + GridCellConfig.size / 2);
+        if(selectedCell == this) {
+            fill(200, 0, 200, 127);
+            rectMode(CENTER);
+            rect(0, 0, GridCellConfig.size, GridCellConfig.size);    
+        }
         if (ViewModeConfig.mode == ViewModeEnum.SECTORS) {
             int[] c = SectorsConfig.colors[sectorId];
             fill(c[0], c[1], c[2]);

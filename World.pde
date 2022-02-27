@@ -9,6 +9,7 @@ int clanCols;
 float translateX = 0.0;
 float translateY = 0.0;
 Grid grid;
+Cell selectedCell = null;
 ArrayList<Cell> cells = new ArrayList<Cell>();
 ArrayList<Cell> addedCells = new ArrayList<Cell>();
 HashMap<UUID, Float> organizmEnergies = new HashMap<UUID, Float>();
@@ -132,7 +133,14 @@ void mouseWheel(MouseEvent e) {
   translateY = (delta * translateY) + mouseY * (1 - delta);
 }
 
-void mouseDragged(MouseEvent e) {
+void mousePressed() {
+  int x = floor((mouseX - offsetX - translateX) / GridCellConfig.size / zoom);
+  int y = floor((mouseY - offsetY - translateY) / GridCellConfig.size / zoom);
+
+  selectedCell = grid.cells[y][x] != null ? grid.cells[y][x].cell : null; 
+}
+
+void mouseDragged() {
   translateX += mouseX - pmouseX;
   translateY += mouseY - pmouseY;
 }
