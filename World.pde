@@ -139,7 +139,7 @@ void mouseDragged(MouseEvent e) {
 
 void keyPressed()
 {
-  if (key == 'r' || key == 'R') {
+  if (key == 'r') {
     zoom = 1;
     translateX = 0;
     translateY = 0;
@@ -153,8 +153,7 @@ void keyPressed()
     ViewModeConfig.mode = ViewModeEnum.CHARGE;
   } else if (key == 'h') {
     RenderConfig.show = !RenderConfig.show;
-  }
-  else if(key == 'p') {
+  } else if (key == 'p') {
     RenderConfig.paused = !RenderConfig.paused; 
   }
 }
