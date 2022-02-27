@@ -89,16 +89,17 @@ static class SunConfig {
   static float min = 5;
   static float max = 20;
   static float current;
+  static int halfPeriodTime = 2500;
 
-  static public void calculateIntensity(int currentFrame, int halfPeriodTime) {
-    if (currentFrame < halfPeriodTime) {
-      SunConfig.current = SunConfig.max - map(currentFrame, 0, halfPeriodTime, SunConfig.min, SunConfig.max);
+  static public void calculateIntensity(int currentFrame) {
+    if (currentFrame < SunConfig.halfPeriodTime) {
+      SunConfig.current = SunConfig.max - map(currentFrame, 0, SunConfig.halfPeriodTime, SunConfig.min, SunConfig.max);
     } else {
-      currentFrame = currentFrame % (2 * halfPeriodTime);
-      if (currentFrame > halfPeriodTime)
-        SunConfig.current = map(currentFrame, halfPeriodTime, 2 * halfPeriodTime, SunConfig.min, SunConfig.max / 2);
+      currentFrame = currentFrame % (2 * SunConfig.halfPeriodTime);
+      if (currentFrame > SunConfig.halfPeriodTime)
+        SunConfig.current = map(currentFrame, SunConfig.halfPeriodTime, 2 * SunConfig.halfPeriodTime, SunConfig.min, SunConfig.max / 2);
       else
-      SunConfig.current = SunConfig.max / 2 - map(currentFrame, 0, halfPeriodTime, SunConfig.min, SunConfig.max / 2);
+      SunConfig.current = SunConfig.max / 2 - map(currentFrame, 0, SunConfig.halfPeriodTime, SunConfig.min, SunConfig.max / 2);
     }
   }
 }

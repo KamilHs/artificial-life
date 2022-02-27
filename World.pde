@@ -95,7 +95,7 @@ void setup() {
 void draw() {
   background(100);
 
-  SunConfig.calculateIntensity(frameCount, 250);
+  SunConfig.calculateIntensity(frameCount);
   pushMatrix();
   translate(translateX, translateY);
   scale(zoom);
