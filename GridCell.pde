@@ -41,9 +41,9 @@ public class GridCell {
       fill(c[0], c[1], c[2]);
     } else {
       if (isOrganicallyPoisoned())
-        fill(255, 0, 0);
+        fill(125, 7, 7);
       else if (isTooCharged())
-        fill(0, 0, 255);
+        fill(5, 1, 71);
       else if (!hasSun())
         fill((x + y) % 2 == 0 ? 235 : 220);
       else
