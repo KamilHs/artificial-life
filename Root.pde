@@ -5,7 +5,7 @@ public class Root extends Cell {
 
   public void _draw(){
     rectMode(CENTER);
-    fill(255, 128, 0);
+    fill(222, 121, 20);
     rect(0, 0, RootConfig.size, RootConfig.size);
   }
 
